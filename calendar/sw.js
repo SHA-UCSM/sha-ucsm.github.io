@@ -5,9 +5,9 @@ self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     cache.addAll([
-      'https://sha-ucsm.github.io/calendar/',
-      'https://sha-ucsm.github.io/calendar/calendar.js',
-      'https://sha-ucsm.github.io/calendar/style.css'
+      './',
+      './calendar.js',
+      './style.css'
     ]);
   })());
 });
