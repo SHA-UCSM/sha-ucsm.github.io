@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Login</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            /* Blue-600 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Use a slightly darker background for better contrast */
+            background-color: rgb(61, 94, 135);
+        }
+
+        /* Ensures the body takes up the full viewport height */
+        .full-center-container {
+            min-height: 100vh;
+            display: flex;
+            /* Activate flexbox */
+            align-items: center;
+            /* Vertical centering */
+            justify-content: center;
+            /* Horizontal centering */
+            padding: 1rem;
+        }
+
+        /* Basic form element styling for focus rings */
+        input:focus {
+            border-color: var(--primary-color) !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.4);
+            /* Blue-400 focus ring */
+        }
+
+        /* Responsive width for the card */
+        .main-card {
+            width: 100%;
+            max-width: 860px;
+            min-width: 760px;
+        }
+
+        /* Keyboard */
+        /* --- Display Text Section --- */
+        .lesson-display {
+            padding: 7px;
+            background-color: #1c1c19;
+        }
+
+        .display-text {
+            border-radius: 3px;
+            height: 3.5rem;
+            overflow: hidden;
+            text-align: center;
+            color: #000;
+            background: darkgoldenrod;
+            font-family: "Noto Sans Myanmar", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* preserve spaces so plain ' ' is shown */
+            white-space: pre-wrap;
+        }
+
+        .display-text span {
+            margin: 0 .1rem;
+        }
+
+        /* optional spacing between items */
+        .finish {
+            color: #565666;
+        }
+
+        .cursor {
+            color: white;
+        }
+
+        /* Styles for the current character being typed in the display text */
+        .active_cursor {
+            background-color: transparent;
+            color: #4d22b3;
+            border-color: #4d22b3;
+            border-radius: 0;
+        }
+
+        /* --- Hint Box Section --- */
+        .hint-box {
+            display: flex;
+            flex-direction: row;
+            background: #37a5a5;
+            margin: 3px 3px 5px 3px;
+            padding: 0px 3px;
+            border: 1.5px solid rgb(186, 199, 5);
+            border-radius: 3px;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hint {
+            margin: 3px 3px 5px 3px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-basis: fit-content;
+            align-content: flex-end;
+            justify-content: center;
+        }
+
+        /* --- Keyboard Section --- */
+        .key-display {
+            background: darkgoldenrod;
+            border-radius: 7px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .key {
+            position: relative;
+            display: block;
+            height: 30px;
+            width: 30px;
+            margin: 4px;
+            padding: 3px 6px;
+            color: #3a3a3a;
+            background-color: #f7f7f7;
+            box-shadow: inset 0 -3px 0 #b5b5b5fd, inset 0px 1px 1px -1px #fff, 0px 1px 1px 0px #7a7777;
+            border-radius: 3px;
+            font-size: 14px;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            user-select: none;
+            cursor: pointer;
+            transition: transform 0.08s ease, background-color 0.08s ease, box-shadow 0.08s ease;
+        }
+
+        .key:active {
+            transform: translateY(1.5px);
+            box-shadow: inset 0 -0.5px 0 #aaaaaa, inset 0px -1px 1px -1px #fff, 0px 0.5px 0.75px 0px #999;
+        }
+
+        .highlight {
+            box-shadow: inset 0 -3px 0 #ffffff, inset 0px 1px 1px -1px #fff, 0px 1px 1px 0px #999;
+            color: white;
+        }
+
+        .key.center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .key.center-left {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+        }
+
+        .key.center-right {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+
+        .en {
+            display: inline-block;
+            vertical-align: top;
+            width: 25%;
+        }
+
+        .my {
+            display: flex;
+            vertical-align: middle;
+            justify-content: center;
+            align-items: center;
+            margin-top: -10%;
+            color: #1c1c19;
+            font-family: "Noto Sans Myanmar", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .highlight>.my {
+            color: white;
+        }
+
+        /* Specific Key Sizing */
+        .key.l-size {
+            flex: 1.5;
+        }
+
+        .key.xl-size {
+            flex: 1.625;
+        }
+
+        .key.xxl-size {
+            flex: 2.125;
+        }
+
+        .key.space-bar {
+            flex: 7.2;
+            text-align: center;
+        }
+
+        .key.b-r {
+            border-right: 1px solid white;
+        }
+
+        .key.b-l {
+            border-left: 1px solid white;
+        }
+
+        .caps-dot {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 6px;
+            text-align: right;
+        }
+
+        .key-icon {
+            font-size: x-large;
+        }
+
+        .key-icon2 {
+            font-size: xx-large;
+        }
+
+        /* Finger Group Colors */
+        div[data-finger='ls'],
+        div[data-finger='rs'] {
+            background-color: rgb(94, 148, 247);
+            /* Little fingers */
+        }
+
+        div[data-finger='lr'],
+        div[data-finger='rr'] {
+            background-color: rgb(86, 185, 24);
+            /* Ring fingers */
+        }
+
+        div[data-finger='lm'],
+        div[data-finger='rm'] {
+            background-color: rgb(179, 37, 37);
+            /* Middle fingers */
+        }
+
+        div[data-finger='lf'],
+        div[data-finger='rf'] {
+            background-color: rgb(88, 80, 120);
+        }
+
+        div[data-finger='t'] {
+            background-color: rgb(137, 139, 72);
+            /* Thumb keys */
+        }
+
+        div[data-finger='x'] {
+            background-color: rgb(107, 114, 129);
+            /* Miscellaneous/Extra keys */
+        }
+
+        /* 2. Small screens (≥ 576px) */
+        @media (min-width: 576px) {
+            .key-display {
+                padding: 1px;
+                margin-top: 8px;
+            }
+
+            .key {
+                height: 33px;
+                width: 33px;
+                margin: 1px;
+                padding: .5px 2px;
+                border-radius: 3px;
+                font-size: 13px;
+            }
+        }
+
+        @media (min-width: 667px) {
+            .key-display {
+                padding: 1px;
+                margin-top: 8px;
+            }
+
+            .key {
+                height: 35px;
+                width: 35px;
+                margin: 2px;
+                padding: 1px 3px;
+                border-radius: 3px;
+                font-size: 14px;
+            }
+        }
+
+        /* 3. Medium screens (≥ 768px) */
+        @media (min-width: 768px) {
+            .key-display {
+                padding: 3px;
+                margin-top: 8px;
+            }
+
+            .key {
+                height: 53px;
+                width: 53px;
+                margin: 3px;
+                padding: 1px 4px 4px 4px;
+                border-radius: 3px;
+                font-size: 19px;
+            }
+        }
+
+        /* 4. Large screens (≥ 992px) */
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+    </style>
+</head>
+
+<body class="full-center-container">
+    <div class="main-card" id="practicePage">
+        <div class="display-text" id="lessonDisplay"></div>
+        <div class="key-display">
+            <div class="hint-box">
+                <label>Hint : </label>
+                <div style="flex:auto;">
+                    <div class="hint" id="hint"></div>
+                </div>
+            </div>
+            <div class="keyboard" id="keyboard">
+                <div class="row">
+                    <div id="Backquote" data-finger="ls" class="key">
+                        <div class="en">`</div>
+                        <div class="my"><b>ၐ</b></div>
+                    </div>
+                    <div id="Digit1" data-finger="ls" class="key">
+                        <div class="en">1</div>
+                        <div class="my"><b>၁</b></div>
+                    </div>
+                    <div id="Digit2" data-finger="ls" class="key">
+                        <div class="en">2</div>
+                        <div class="my"><b>၂</b></div>
+                    </div>
+                    <div id="Digit3" data-finger="lr" class="key">
+                        <div class="en">3</div>
+                        <div class="my"><b>၃</b></div>
+                    </div>
+                    <div id="Digit4" data-finger="lm" class="key">
+                        <div class="en">4</div>
+                        <div class="my"><b>၄</b></div>
+                    </div>
+                    <div id="Digit5" data-finger="lf" class="key">
+                        <div class="en">5</div>
+                        <div class="my"><b>၅</b></div>
+                    </div>
+                    <div id="Digit6" data-finger="lf" class="key b-r">
+                        <div class="en">6</div>
+                        <div class="my"><b>၆</b></div>
+                    </div>
+                    <div id="Digit7" data-finger="rf" class="key b-l">
+                        <div class="en">7</div>
+                        <div class="my"><b>၇</b></div>
+                    </div>
+                    <div id="Digit8" data-finger="rm" class="key">
+                        <div class="en">8</div>
+                        <div class="my"><b>၈</b></div>
+                    </div>
+                    <div id="Digit9" data-finger="rr" class="key">
+                        <div class="en">9</div>
+                        <div class="my"><b>၉</b></div>
+                    </div>
+                    <div id="Digit0" data-finger="rs" class="key">
+                        <div class="en">0</div>
+                        <div class="my"><b>၀</b></div>
+                    </div>
+                    <div id="Minus" data-finger="rs" class="key">
+                        <div class="en">-</div>
+                        <div class="my"><b>-</b></div>
+                    </div>
+                    <div id="Equal" data-finger="rs" class="key">
+                        <div class="en">=</div>
+                        <div class="my"><b>=</b></div>
+                    </div>
+                    <div data-finger="rs" class="key l-size center-right">
+                        <span class="key-icon">&#x232B;</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div data-finger="ls" class="key l-size center-left">
+                        <span>Tab</span>
+                    </div>
+                    <div id="KeyQ" data-finger="ls" class="key">
+                        <div class="en">q</div>
+                        <div class="my"><b>ဆ</b></div>
+                    </div>
+                    <div id="KeyW" data-finger="lr" class="key">
+                        <div class="en">w</div>
+                        <div class="my"><b>တ</b></div>
+                    </div>
+                    <div id="KeyE" data-finger="lm" class="key">
+                        <div class="en">e</div>
+                        <div class="my"><b>န</b></div>
+                    </div>
+                    <div id="KeyR" data-finger="lf" class="key">
+                        <div class="en">r</div>
+                        <div class="my"><b>မ</b></div>
+                    </div>
+                    <div id="KeyT" data-finger="lf" class="key b-r">
+                        <div class="en">t</div>
+                        <div class="my"><b>အ</b></div>
+                    </div>
+                    <div id="KeyY" data-finger="rf" class="key b-l">
+                        <div class="en">y</div>
+                        <div class="my"><b>ပ</b></div>
+                    </div>
+                    <div id="KeyU" data-finger="rf" class="key">
+                        <div class="en">u</div>
+                        <div class="my"><b>က</b></div>
+                    </div>
+                    <div id="KeyI" data-finger="rm" class="key">
+                        <div class="en">i</div>
+                        <div class="my"><b>င</b></div>
+                    </div>
+                    <div id="KeyO" data-finger="rr" class="key">
+                        <div class="en">o</div>
+                        <div class="my"><b>သ</b></div>
+                    </div>
+                    <div id="KeyP" data-finger="rs" class="key">
+                        <div class="en">p</div>
+                        <div class="my"><b>စ</b></div>
+                    </div>
+                    <div id="BracketLeft" data-finger="rs" class="key">
+                        <div class="en">[</div>
+                        <div class="my"><b>ဟ</b></div>
+                    </div>
+                    <div id="BracketRight" data-finger="rs" class="key">
+                        <div class="en">]</div>
+                        <div class="my"><b>ဩ</b></div>
+                    </div>
+                    <div id="Backslash" data-finger="rs" class="key">
+                        <div class="en">\</div>
+                        <div class="my"><b>၏</b></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="CapsLock" data-finger="ls" class="key xl-size center-left" onclick="CapOn();">
+                        <span class="key-icon2">&#x21EA;</span>
+                        <span class="caps-dot">•</span>
+                    </div>
+                    <div id="KeyA" data-finger="ls" class="key">
+                        <div class="en">a</div>
+                        <div class="my"><b>ေ</b></div>
+                    </div>
+                    <div id="KeyS" data-finger="lr" class="key">
+                        <div class="en">s</div>
+                        <div class="my"><b>ျ</b></div>
+                    </div>
+                    <div id="KeyD" data-finger="lm" class="key">
+                        <div class="en">d</div>
+                        <div class="my"><b>ိ</b></div>
+                    </div>
+                    <div id="KeyF" data-finger="lf" class="key">
+                        <div class="en">f</div>
+                        <div class="my"><b>်</b></div>
+                    </div>
+                    <div id="KeyG" data-finger="lf" class="key b-r">
+                        <div class="en">g</div>
+                        <div class="my"><b>ါ</b></div>
+                    </div>
+                    <div id="KeyH" data-finger="rf" class="key b-l">
+                        <div class="en">h</div>
+                        <div class="my"><b>့</b></div>
+                    </div>
+                    <div id="KeyJ" data-finger="rf" class="key">
+                        <div class="en">j</div>
+                        <div class="my"><b>ြ</b></div>
+                    </div>
+                    <div id="KeyK" data-finger="rm" class="key">
+                        <div class="en">k</div>
+                        <div class="my"><b>ု</b></div>
+                    </div>
+                    <div id="KeyL" data-finger="rr" class="key">
+                        <div class="en">l</div>
+                        <div class="my"><b>ူ</b></div>
+                    </div>
+                    <div id="Semicolon" data-finger="rs" class="key">
+                        <div class="en">;</div>
+                        <div class="my"><b>း</b></div>
+                    </div>
+                    <div id="Quote" data-finger="rs" class="key">
+                        <div class="en">'</div>
+                        <div class="my"><b>'</b></div>
+                    </div>
+                    <div id="Enter" data-finger="rs" class="key xl-size center-right">
+                        <span>Enter</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="ShiftLeft" data-finger="ls" class="key xxl-size center-left">
+                        <span>Shift</span>
+                    </div>
+                    <div id="KeyZ" data-finger="ls" class="key">
+                        <div class="en">z</div>
+                        <div class="my"><b>ဖ</b></div>
+                    </div>
+                    <div id="KeyX" data-finger="lr" class="key">
+                        <div class="en">x</div>
+                        <div class="my"><b>ထ</b></div>
+                    </div>
+                    <div id="KeyC" data-finger="lm" class="key">
+                        <div class="en">c</div>
+                        <div class="my"><b>ခ</b></div>
+                    </div>
+                    <div id="KeyV" data-finger="lf" class="key">
+                        <div class="en">v</div>
+                        <div class="my"><b>လ</b></div>
+                    </div>
+                    <div id="KeyB" data-finger="lf" class="key b-r">
+                        <div class="en">b</div>
+                        <div class="my"><b>ဘ</b></div>
+                    </div>
+                    <div id="KeyN" data-finger="rf" class="key b-l">
+                        <div class="en">n</div>
+                        <div class="my"><b>ည</b></div>
+                    </div>
+                    <div id="KeyM" data-finger="rf" class="key">
+                        <div class="en">m</div>
+                        <div class="my"><b>ာ</b></div>
+                    </div>
+                    <div id="Comma" data-finger="rm" class="key">
+                        <div class="en">,</div>
+                        <div class="my"><b>,</b></div>
+                    </div>
+                    <div id="Period" data-finger="rr" class="key">
+                        <div class="en">.</div>
+                        <div class="my"><b>.</b></div>
+                    </div>
+                    <div id="Slash" data-finger="rs" class="key">
+                        <div class="en">/</div>
+                        <div class="my"><b>/</b></div>
+                    </div>
+                    <div id="ShiftRight" data-finger="rs" class="key xxl-size center-right">
+                        <span>Shift</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div data-finger="x" class="key center">
+                        <span>Ctrl</span>
+                    </div>
+                    <div data-finger="x" class="key center">
+                        <span>Fn</span>
+                    </div>
+                    <div data-finger="x" class="key center">
+                        <span>Win</span>
+                    </div>
+                    <div data-finger="x" class="key center">
+                        <span>Alt</span>
+                    </div>
+                    <div id="Space" data-finger="t" class="key space-bar center">
+                        <span>Space</span>
+                    </div>
+                    <div data-finger="x" class="key center">
+                        <span>Alt</span>
+                    </div>
+                    <div data-finger="x" class="key center">
+                        <span class="key-icon">☰</span>
+                    </div>
+                    <div data-finger="x" class="key center">
+                        <span>Ctrl</span>
+                    </div>
+                    <div id="Help" data-finger="x" class="key center" onclick="openModal();">
+                        <span class="key-icon">🛈</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden"></div>
+
+    <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white w-full max-w-2xl rounded-xl shadow-2xl flex flex-col overflow-hidden">
+
+            <div class="flex justify-between items-center pl-6 py-2 pr-4 border-b border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-800">Lessons</h3>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl"
+                    onclick="closeModal()">&times;</button>
+            </div>
+
+            <div class="p-6 overflow-y-auto max-h-[60vh] thin-scrollbar space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lessonMenu"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const LOWER_CASE = {
+            Backquote: { 'my': 'ၐ', 'en': '`' },
+            Digit1: { 'my': '၁', 'en': '1' },
+            Digit2: { 'my': '၂', 'en': '2' },
+            Digit3: { 'my': '၃', 'en': '3' },
+            Digit4: { 'my': '၄', 'en': '4' },
+            Digit5: { 'my': '၅', 'en': '5' },
+            Digit6: { 'my': '၆', 'en': '6' },
+            Digit7: { 'my': '၇', 'en': '7' },
+            Digit8: { 'my': '၈', 'en': '8' },
+            Digit9: { 'my': '၉', 'en': '9' },
+            Digit0: { 'my': '၀', 'en': '0' },
+            Minus: { 'my': '-', 'en': '-' },
+            Equal: { 'my': '=', 'en': '=' },
+            KeyQ: { 'my': 'ဆ', 'en': 'q' },
+            KeyW: { 'my': 'တ', 'en': 'w' },
+            KeyE: { 'my': 'န', 'en': 'e' },
+            KeyR: { 'my': 'မ', 'en': 'r' },
+            KeyT: { 'my': 'အ', 'en': 't' },
+            KeyY: { 'my': 'ပ', 'en': 'y' },
+            KeyU: { 'my': 'က', 'en': 'u' },
+            KeyI: { 'my': 'င', 'en': 'i' },
+            KeyO: { 'my': 'သ', 'en': 'o' },
+            KeyP: { 'my': 'စ', 'en': 'p' },
+            BracketLeft: { 'my': 'ဟ', 'en': '[' },
+            BracketRight: { 'my': 'ဩ', 'en': ']' },
+            Backslash: { 'my': '၏', 'en': '\\' },
+            KeyA: { 'my': 'ေ', 'en': 'a' },
+            KeyS: { 'my': 'ျ', 'en': 's' },
+            KeyD: { 'my': 'ိ', 'en': 'd' },
+            KeyF: { 'my': '်', 'en': 'f' },
+            KeyG: { 'my': 'ါ', 'en': 'g' },
+            KeyH: { 'my': '့', 'en': 'h' },
+            KeyJ: { 'my': 'ြ', 'en': 'j' },
+            KeyK: { 'my': 'ု', 'en': 'k' },
+            KeyL: { 'my': 'ူ', 'en': 'l' },
+            Semicolon: { 'my': 'း', 'en': ';' },
+            Quote: { 'my': "'", 'en': "'" },
+            KeyZ: { 'my': 'ဖ', 'en': 'z' },
+            KeyX: { 'my': 'ထ', 'en': 'x' },
+            KeyC: { 'my': 'ခ', 'en': 'c' },
+            KeyV: { 'my': 'လ', 'en': 'v' },
+            KeyB: { 'my': 'ဘ', 'en': 'b' },
+            KeyN: { 'my': 'ည', 'en': 'n' },
+            KeyM: { 'my': 'ာ', 'en': 'm' },
+            Comma: { 'my': ',', 'en': ',' },
+            Period: { 'my': '.', 'en': '.' },
+            Slash: { 'my': '/', 'en': '/' },
+        };
+
+        const UPPER_CASE = {
+            Backquote: { 'my': 'ဎ', 'en': '~' },
+            Digit1: { 'my': 'ဍ', 'en': '!' },
+            Digit2: { 'my': 'ၒ', 'en': '@' },
+            Digit3: { 'my': 'ဋ', 'en': '#' },
+            Digit4: { 'my': 'ၓ', 'en': '$' },
+            Digit5: { 'my': 'ၔ', 'en': '%' },
+            Digit6: { 'my': 'ၕ', 'en': '^' },
+            Digit7: { 'my': 'ရ', 'en': '&' },
+            Digit8: { 'my': '*', 'en': '*' },
+            Digit9: { 'my': '(', 'en': '(' },
+            Digit0: { 'my': ')', 'en': ')' },
+            Minus: { 'my': '_', 'en': '_' },
+            Equal: { 'my': '+', 'en': '+' },
+            KeyQ: { 'my': 'ဈ', 'en': 'Q' },
+            KeyW: { 'my': 'ဝ', 'en': 'W' },
+            KeyE: { 'my': 'ဣ', 'en': 'E' },
+            // ### Key Magic ###
+            KeyR: { 'my': '', 'en': 'R' },
+            KeyT: { 'my': 'ဤ', 'en': 'T' },
+            KeyY: { 'my': '၌', 'en': 'Y' },
+            KeyU: { 'my': 'ဥ', 'en': 'U' },
+            KeyI: { 'my': '၍', 'en': 'I' },
+            KeyO: { 'my': 'ဿ', 'en': 'O' },
+            KeyP: { 'my': 'ဏ', 'en': 'P' },
+            BracketLeft: { 'my': 'ဧ', 'en': '{' },
+            BracketRight: { 'my': 'ဪ', 'en': '}' },
+            Backslash: { 'my': 'ၑ', 'en': '|' },
+            KeyA: { 'my': 'ဗ', 'en': 'A' },
+            KeyS: { 'my': 'ှ', 'en': 'S' },
+            KeyD: { 'my': 'ီ', 'en': 'D' },
+            KeyF: { 'my': '္', 'en': 'F' },
+            KeyG: { 'my': 'ွ', 'en': 'G' },
+            KeyH: { 'my': 'ံ', 'en': 'H' },
+            KeyJ: { 'my': 'ဲ', 'en': 'J' },
+            KeyK: { 'my': 'ဒ', 'en': 'K' },
+            KeyL: { 'my': 'ဓ', 'en': 'L' },
+            Semicolon: { 'my': 'ဂ', 'en': ':' },
+            Quote: { 'my': '"', 'en': '"' },
+            KeyZ: { 'my': 'ဇ', 'en': 'Z' },
+            KeyX: { 'my': 'ဌ', 'en': 'X' },
+            KeyC: { 'my': 'ဃ', 'en': 'C' },
+            KeyV: { 'my': 'ဠ', 'en': 'V' },
+            KeyB: { 'my': 'ယ', 'en': 'B' },
+            KeyN: { 'my': 'ဉ', 'en': 'N' },
+            KeyM: { 'my': 'ဦ', 'en': 'M' },
+            Comma: { 'my': '၊', 'en': '<' },
+            Period: { 'my': '။', 'en': '>' },
+            Slash: { 'my': '?', 'en': '?' }
+        };
+
+        var LessonLines = [
+            ['ထင်း', 'ရှူး', 'နံ့', 'သင်း', 'သော', ' ', 'က', 'လော', 'မြို့', 'လေး', 'ကို', ' ', 'သ', 'ဘော', 'ကျ', 'သည်', '။'],
+            // ['ကို', 'လို', 'နီ', 'ခေတ်', ' ', 'ဗြိ', 'တိ', 'သျှ', 'အ', 'စိုး', 'ရ', 'ဝန်', 'ထမ်း', 'နှင့်', ' ', 'စာ', 'ရေး', 'ဆ', 'ရာ', 'ကြီး', ' ', 'မော', 'ရစ်', 'ကော', 'လစ်', 'က', ' ', 'က', 'လော', 'မြို့', 'လေး', 'သည်', ' '],
+            // ['တောင်', 'ကြား', 'တွင်', ' ', 'လှ', 'ပ', ' ', 'မွှေး', 'ပျံ့', ' ', 'သန့်', 'ရှင်း', 'စွာ', ' ', 'ရှိ', 'နေ', 'သည်', 'ဟု', ' ', 'သူ', '၏', 'စာ', 'အုပ်', 'တွင်', ' ', 'ချီး', 'ကျူး', 'ဖော်', 'ပြ', 'ခဲ့', 'ဖူး', 'သည်', '။'],
+            // ['က', 'လော', 'ဈေး', 'နှင့်', ' ', 'ဈေး', 'နေ့', 'သည်', ' ', 'စိတ်', 'ဝင်', 'စား', 'ဖွယ်', ' ', 'လေ့', 'လာ', 'စ', 'ရာ', 'များ', 'စွာ', ' ', 'ရှိ', 'သည်', '။'],
+            // ['က', 'လော', 'သို့', ' ', 'ရ', 'ထား', 'ဖြင့်', '၊', ' ', 'ကား', 'ဖြင့်', 'ဖြစ်', 'စေ', ' ', 'ဟဲ', 'ဟိုး', 'လေ', 'ယဉ်', 'ကွင်း', 'မှ', 'တ', 'ဆင့်', ' ', 'လေ', 'ယာဉ်', 'ဖြင့်', ' ', 'ဖြစ်', 'စေ', ' ', 'လာ', 'နိုင်', '၏', '။'],
+            // ['အေး', 'ချမ်း', 'သာ', 'ယာ', 'သော', ' ', 'တောင်', 'စ', 'ခန်း', 'မြို့', 'လေး', 'ဖြစ်', 'သော', 'ကြောင့်', ' ', 'နွေ', 'ရာ', 'သီ', 'တွင်', ' '],
+            // ['လာ', 'ရောက်', 'လည်', 'ပတ်', 'ပြီး', ' ', 'အ', 'နား', 'ယူ', 'ဖွယ်', 'ကောင်း', 'သော', ' ', 'မြို့', 'ဖြစ်', 'သည်', '။']
+        ];
+
+        var KeySequences = [
+            [[0, 1, 2, 3], [0, 1, 2, 3], [0, 1, 2], [0, 1, 2, 3], [1, 0, 2], [0], [0], [1, 0, 2], [0, 1, 2, 3, 4], [1, 0, 2], [0, 1, 2], [0], [0], [1, 0, 2], [0, 1], [0, 1, 2], [0]],
+            // [[0, 1, 2], [0, 1, 2], [0, 1], [1, 0, 2, 3], [0], [0, 1, 2], [0, 1], [0, 1, 2], [0], [0, 1, 2, 3], [0], [0, 1, 2], [0, 1, 2, 3], [0, 1, 2, 3, 4], [0], [0, 1], [1, 0, 2], [0], [0, 1], [0, 1, 2, 3], [0], [1, 0, 2], [0, 1, 2], [1, 0, 2], [0, 1, 2], [0], [0], [0], [1, 0, 2], [0, 1, 2, 3, 4], [1, 0, 2], [0, 1, 2], [0]],
+            // [[1, 0, 2, 3, 4], [0, 1, 2, 3], [0, 1, 2, 3], [0], [0, 1], [0], [0], [3, 0, 1, 2, 4], [0, 1, 2, 3], [0], [0, 1, 2, 3], [0, 1, 2, 3, 4], [0, 1, 2], [0], [0, 1, 2], [1, 0], [0, 1, 2], [0, 1], [0], [0, 1], [0], [0, 1], [0, 1, 2, 3], [0, 1, 2, 3], [0], [0, 1, 2, 3], [0, 1, 2, 3], [1, 0, 2, 3], [0, 1], [0, 1, 2], [0, 1, 2], [0, 1, 2], [0]],
+            // [[0], [1, 0, 2], [1, 0, 2], [0, 1, 2, 3, 4], [0], [1, 0, 2], [1, 0, 2], [0, 1, 2], [0], [0, 1, 2, 3], [0, 1, 2], [0, 1, 2], [0, 1, 2, 3], [0], [1, 0, 2], [0, 1], [0], [0, 1], [0, 1, 2, 3], [0, 1, 2], [0], [0, 1, 2], [0, 1, 2], [0]],
+            // [[0], [1, 0, 2], [0, 1, 2, 3], [0], [0], [0, 1, 2], [0, 1, 2, 3, 4], [0], [0], [0, 1, 2], [0, 1, 2, 3, 4], [0, 1, 2, 3], [1, 0], [0], [0, 1], [0, 1, 2, 3], [1, 0], [0, 1, 2], [0, 1, 2, 3, 4], [0, 1], [0], [0, 1, 2, 3], [0], [1, 0], [0, 1, 2, 3], [0, 1, 2, 3, 4], [0], [0, 1, 2, 3], [1, 0], [0], [0, 1], [0, 1, 2, 3, 4], [0], [0]],
+            // [[1, 0, 2], [0, 1, 2, 3, 4], [0, 1], [0, 1], [1, 0, 2], [0], [1, 0, 2, 3, 4], [0], [0, 1, 2, 3], [0, 1, 2, 3, 4], [1, 0, 2], [0, 1, 2, 3], [1, 0, 2], [2, 0, 1, 3, 4, 5, 6], [0], [2, 0, 1], [0, 1], [0, 1], [0, 1, 2, 3], [0]],
+            // [[0, 1], [1, 0, 2, 3, 4], [0, 1, 2], [0, 1, 2], [0, 1, 2, 3], [0], [0], [0, 1, 2], [0, 1], [0, 1, 2, 3], [1, 0, 2, 3, 4, 5], [1, 0, 2], [0], [0, 1, 2, 3, 4], [0, 1, 2, 3], [0, 1, 2], [0]]
+        ];
+
+        var LessonLength = 50;
+
+        var CurLine = 0; var CurWord = 0; var CurIdx = 0;
+
+        var CurrentKeyboardCase = 'lowercase';  // Save current keyboard case (Upper/Lower case)
+        var CurrentKey = '';                    // Save current lesson key (KeyU, KeyA, etc.)
+        var CurrentShiftKey = '';               // Save current sift key
+
+        var CapLock = document.getElementById('CapsLock');
+
+        var LessonDisplay = document.getElementById('lessonDisplay');
+        var Hint = document.getElementById('hint');
+
+        var TypingStatus = 0; // 0 - No lesson selected, 1 - Lesson selected, 2 - Typing starting, 3 - Complete Lesson
+
+        // For Report(Character Per Minute, Accuracy)
+        var HitCount = 0;
+        var StartTime;
+        var EndTime;
+        var audioCtx;
+
+        window.addEventListener("keydown", function (event) {
+            let k = event.code;
+            if (k == 'Escape' || k == 'Tab' || k == 'F1' || k == 'F3' || k == 'F5' || k == 'F6' || k == 'F7' || k == 'F11' || k == 'F12' || k == 'PageUp' || k == 'PageDown' || k == 'Home' || k == 'End') {
+                event.preventDefault();
+            }
+
+            // To start lesson ShiftKey & Space
+            if (TypingStatus == 1 && event.shiftKey && event.code == 'Space') {
+                TypingStatus = 2;
+                LessonDisplay.focus();
+
+                document.getElementById('ShiftLeft').classList.remove('highlight');
+                document.getElementById('Space').classList.remove('highlight');
+                CapLock.classList.remove('highlight');
+
+                DisplayLines();
+                DisplayHint();
+                SearchObject();
+
+                StartTime = new Date();
+            }
+
+            // Check current character equal to event.key ('က','u')
+            else if (TypingStatus == 2) {
+                if (k == 'Backquote' || k == 'Digit1' || k == 'Digit2' || k == 'Digit3' || k == 'Digit4' || k == 'Digit5' || k == 'Digit6' || k == 'Digit7' || k == 'Digit8' || k == 'Digit9' || k == 'Digit0' || k == 'Minus' || k == 'Equal' || k == 'Backspace' || k == 'Tab' || k == 'KeyQ' || k == 'KeyW' || k == 'KeyE' || k == 'KeyR' || k == 'KeyT' || k == 'KeyY' || k == 'KeyU' || k == 'KeyI' || k == 'KeyO' || k == 'KeyP' || k == 'BracketLeft' || k == 'BracketRight' || k == 'Backslash' || k == 'KeyA' || k == 'KeyS' || k == 'KeyD' || k == 'KeyF' || k == 'KeyG' || k == 'KeyH' || k == 'KeyJ' || k == 'KeyK' || k == 'KeyL' || k == 'Semicolon' || k == 'Quote' || k == 'Enter' || k == 'KeyZ' || k == 'KeyX' || k == 'KeyC' || k == 'KeyV' || k == 'KeyB' || k == 'KeyN' || k == 'KeyM' || k == 'Comma' || k == 'Period' || k == 'Slash' || k == 'Space') {
+                    HitCount++;
+
+                    if (CurrentShiftKey !== '') {
+                        if (event.code == CurrentKey && event.shiftKey) {
+                            playKeySound();
+                            NextChar();
+                        }
+                        else {
+                            playErrorSound();
+                        }
+                    }
+                    else {
+                        if (event.code == CurrentKey && !event.shiftKey) {
+                            playKeySound();
+                            NextChar();
+                        }
+                        else {
+                            playErrorSound();
+                        }
+                    }
+                }
+            }
+            event.preventDefault();
+        });
+
+        function main() {
+            TypingStatus = 1;
+            CurrentTypingIndex = 0;
+            CurrentKey = '';
+            CurrentShiftKey = '';
+            HitCount = 0;
+
+            LessonDisplay.innerHTML = 'Press <b>Shift</b> + <b>Space</b> to start!';
+
+            document.getElementById('ShiftLeft').classList.add('highlight');
+            document.getElementById('Space').classList.add('highlight');
+        }
+
+        function DisplayLines() {
+            let line = '';
+            LessonLines[CurLine].forEach(function (word, idx) {
+                line += '<span id="D' + CurLine + '_' + idx + '">' + word + '</span>';
+            });
+
+            // ### Key Magic ###
+            line = line.replace('', '၎င်း');
+
+            LessonDisplay.innerHTML = line;
+
+            document.getElementById('D' + CurLine + '_' + CurWord).className = 'cursor';
+        }
+
+        function DisplayHint() {
+            let hint = '';
+            let _char = LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][0]];
+            // ID [LineNo_Word_CharIndex]
+            if (_char == ' ') {
+                hint += '<div id="H' + CurLine + '_' + CurWord + '_' + 0 + '" class="cursor">Space</div>';
+            }
+            else if (_char == '') {
+                hint += '<div id="H' + CurLine + '_' + CurWord + '_' + 0 + '" class="cursor">၎င်း</div>';
+            }
+            else {
+                hint += '<div id="H' + CurLine + '_' + CurWord + '_' + 0 + '" class="cursor">' + _char + '</div>';
+            }
+
+            let l = LessonLines[CurLine][CurWord].length;
+
+            for (let i = 1; i < l; i++) {
+                if (LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][i]] == ' ')
+                    hint = '+<div id="H' + CurLine + '_' + CurWord + '_' + i + '">Space</div>';
+                else
+                    hint += '+<div id="H' + CurLine + '_' + CurWord + '_' + i + '">' + LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][i]] + '</div>';
+            }
+
+            Hint.innerHTML = hint;
+        }
+
+        function NextChar() {
+            RemoveHelight();
+
+            // In the current word loop => move to next char of current word
+            if (CurIdx < LessonLines[CurLine][CurWord].length - 1) {
+                document.getElementById('H' + CurLine + '_' + CurWord + '_' + CurIdx).className = 'finish';
+
+                CurIdx++;
+                SearchObject();
+
+                document.getElementById('H' + CurLine + '_' + CurWord + '_' + CurIdx).className = 'cursor';
+            }
+
+            // In the current line but out of word => move to next word
+            else if (CurWord < LessonLines[CurLine].length - 1) {
+                CurWord++;
+                CurIdx = 0;
+
+                DisplayHint();
+
+                SearchObject();
+
+                document.getElementById('D' + CurLine + '_' + CurWord).className = 'cursor';
+
+                if (CurWord > 0) {
+                    document.getElementById('D' + CurLine + '_' + (CurWord - 1)).className = 'finish';
+                }
+            }
+
+            // In the lesson but out of the line => move to next line
+            else if (CurLine < LessonLines.length - 1) {
+                CurLine++;
+                CurWord = 0;
+                CurIdx = 0;
+
+                DisplayLines();
+
+                DisplayHint();
+
+                SearchObject();
+
+                document.getElementById('D' + CurLine + '_' + CurWord).className = 'cursor';
+
+                if (CurWord > 0) {
+                    document.getElementById('D' + CurLine + '_' + (CurWord - 1)).className = 'finish';
+                }
+            }
+
+            else {
+                // Lesson Complete
+                EndTime = new Date();
+                TypingStatus = 3;
+                Hint.innerHTML = '';
+                CalcuateReport();
+            }
+        }
+
+        // Fill key label with English and Myanmar language base on uppercase or lowercase.
+        // Fill key background color base on key finger.
+        function LabelKeyboard(charcase) {
+            // Check the current keyboard case is equal or not with request keyboard case.
+            // If not equal, change to request keyboard case
+            if (CurrentKeyboardCase !== charcase) {
+                // Save Keyboard Character Case.
+                CurrentKeyboardCase = charcase;
+
+                if (charcase == 'uppercase') {
+                    Object.keys(UPPER_CASE).forEach((key) => {
+                        // ### Key Magic ###
+                        let _keyLabel = UPPER_CASE[key].my;
+
+                        if (_keyLabel == '') {
+                            _keyLabel = '၎င်း';
+                        }
+
+                        document.getElementById(key).innerHTML = '<div class="en">' + UPPER_CASE[key].en + '</div><div class="my">' + _keyLabel + '</div>';
+                    });
+                }
+                else {
+                    Object.keys(LOWER_CASE).forEach((key) => {
+                        //document.getElementById(key).innerHTML = '<div style="display: inline-block;vertical-align: top;">'+LOWER_CASE[key].en+'</div><div style="padding-left: 7px;display: inline-block;font-size: large;"><b>'+LOWER_CASE[key].my+'</b></div>';
+                        // document.getElementById(key).innerHTML = '<span>'+LOWER_CASE[key].en+'<br/>'+LOWER_CASE[key].my+'</span>';
+                        document.getElementById(key).innerHTML = '<div class="en">' + LOWER_CASE[key].en + '</div><div class="my">' + LOWER_CASE[key].my + '</div>';
+                    });
+                }
+            }
+        }
+
+        // Search key in UPPRER_CASE / LOWER_CASE objects and call "Helight()" function to highlight related key
+        function SearchObject() {
+            let CurrentCharacter = LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][CurIdx]];
+
+            if (CurrentCharacter.charCodeAt(0) == 10 || CurrentCharacter.charCodeAt(0) == 13) {
+                HelightKey('Enter');
+            }
+            else if (CurrentCharacter == ' ') {
+                HelightKey('Space');
+            }
+            else {
+                Object.keys(LOWER_CASE).every(key => {
+                    if ((CurrentCharacter == LOWER_CASE[key].my) || (CurrentCharacter == LOWER_CASE[key].en)) {
+                        HelightKey(key, 'lowercase');
+                        return false;
+                    }
+                    else if ((CurrentCharacter == UPPER_CASE[key].my) || (CurrentCharacter == UPPER_CASE[key].en)) {
+                        HelightKey(key, 'uppercase');
+                        return false;
+                    }
+                    // Make sure you return true. If you don't return a value, `every()` will stop.
+                    return true;
+                });
+            }
+        }
+
+        // Change background color of key that user need to type for current lesson's character.
+        function HelightKey(key, _case = '') {
+            LabelKeyboard(_case);
+
+            // Set active class for key
+            let element = document.getElementById(key);
+            element.classList.add('highlight');
+            CurrentKey = key;
+
+            let finger = element.getAttribute('data-finger');
+
+            // Set active class for shift key (Lef / Right)
+            if (_case == 'uppercase') {
+                if (finger == 'ls' || finger == 'lr' || finger == 'lm' || finger == 'lf') {
+                    document.getElementById('ShiftRight').classList.add('highlight');
+                    CurrentShiftKey = 'ShiftRight';
+                }
+                else if (finger == 'rs' || finger == 'rr' || finger == 'rm' || finger == 'rf') {
+                    document.getElementById('ShiftLeft').classList.add('highlight')
+                    CurrentShiftKey = 'ShiftLeft';
+                }
+            }
+            else {
+                CurrentShiftKey = '';
+            }
+        }
+
+        // Remove style of key
+        function RemoveHelight() {
+            if (CurrentKey !== '')
+                document.getElementById(CurrentKey).classList.remove('highlight');
+
+            if (CurrentShiftKey !== '')
+                document.getElementById(CurrentShiftKey).classList.remove('highlight');
+
+            if (CapLock.hasAttribute('data-active')) {
+                delete CapLock.dataset.active;
+                CapLock.classList.remove('highlight');
+            }
+        }
+
+        function CalcuateReport() {
+            // Calcuate CPM 
+            var seconds = Math.floor((EndTime - StartTime) / (1000));
+
+            let cpm = Math.round(LessonLength / (seconds / 60));
+
+            let accuracy = Math.round(((LessonLength - (HitCount - LessonLength)) / LessonLength) * 100);
+
+            // document.getElementById('cpm').innerHTML = cpm;
+            // document.getElementById('accuracy').innerHTML = accuracy;
+            LessonDisplay.innerHTML = 'Characters Per Minute (CPM) : ' + cpm + ' | Accuracy : ' + accuracy + '%';
+
+            saveLessonProgress(1, cpm, accuracy);
+        }
+
+        function CapOn() {
+            // Prohibit using Caps Lock when typing state
+            if (TypingStatus !== 2) {
+                if (CapLock.hasAttribute('data-active')) {
+                    delete CapLock.dataset.active;
+                    CapLock.classList.remove('highlight');
+                    LabelKeyboard('lowercase');
+                }
+                else {
+                    CapLock.classList.add('highlight');
+                    CapLock.dataset.active = "";
+                    LabelKeyboard('uppercase');
+                }
+            }
+
+        }
+
+        /**
+         * Retrieves existing progress, adds new progress, and saves the updated array.
+         */
+        function saveLessonProgress(lesson, cpm, accuracy) {
+            // --- 1. RETRIEVE Existing Data ---
+            const existingProgressString = localStorage.getItem('typingProgress');
+
+            // Initialize with an empty array if no data exists, otherwise parse the JSON string
+            let progressArray = [];
+            if (existingProgressString) {
+                try {
+                    progressArray = JSON.parse(existingProgressString);
+                } catch (e) {
+                    console.error("Error parsing stored JSON:", e);
+                    // If parsing fails, treat it as empty data to avoid crash
+                    progressArray = [];
+                }
+            }
+
+            progressArray[lesson] = [cpm, accuracy];
+
+            // Stringify the updated array and save it back, overwriting the old value
+            const updatedProgressString = JSON.stringify(progressArray);
+            localStorage.setItem('typingProgress', updatedProgressString);
+
+            console.log("Local Storage updated successfully.");
+        }
+
+        // --- Audio Functions ---
+        function initAudio() {
+            if (!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.error("Web Audio API is not supported in this browser.");
+                }
+            }
+        }
+
+        function playSound(frequency, type, duration) {
+            if (!audioCtx) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+
+            // Fade out for a less harsh sound
+            gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+
+        function playKeySound() {
+            // Plays a slightly randomized high pitch for correct keys
+            playSound(800 + Math.random() * 100, 'triangle', 0.05);
+        }
+
+        function playErrorSound() {
+            // Plays a low, square wave for errors
+            playSound(220, 'square', 0.1);
+        }
+
+        window.onload = function () {
+            main();
+            initAudio();
+        }
+    </script>
+
+    <script>
+        const Lessons = [
+            'ဖိုးမောင် ဘောလုံးကန်နေသည်။ မန်ယူ ဝတ်စုံကို ဝတ်ထားကာ ကန်နေသည် ...',
+            'ဓာတ်ပုံရိုက်စဉ် သူပြုံးနေသည်။ ဓာတ်ပုံဆရာက ပြုံးခိုင်း၍ ပြုံးရသောကြောင့် ...',
+            'ဌာနသို့ အလည်သွားမည်။ နေမကောင်း၍ ဌာနသို့ မသွားဖြစ်သည်မှာ ကြာပြီ ...',
+            'သတိ ခွေးကိုက်တတ်သည်။ ဖိုးမောင်၏ အိမ်ရှေ့တံခါးတွင် ထိုဆိုင်းဘုတ် ...',
+            'မမ ဝဝ ထထက ပြုံးပြုံးလေးနှင့် လှ။ ပြုံးနေလျှင် လူတိုင်း လှကြသည် ...',
+            'ပန်းတိုင်းလှ၍ မွှေးကြသည် မဆိုသာပါ။ အပွင့်ကြီးတိုင်း ပို၍မွှေးကြသည် ...'
+        ];
+        const modal = document.getElementById('modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const lessonMenu = document.getElementById('lessonMenu');
+        let lessonMenuStr = '';
+        function openModal() {
+            Lessons.forEach((lesson, index) => {
+                lessonMenuStr += `<div class="bg-indigo-50 p-6 rounded-xl border border-indigo-200 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-semibold text-indigo-700 mb-2">Lesson ${index + 1}</h3>
+                            <p class="text-sm text-indigo-600">${lesson}</p>
+                        </div>
+
+                        <button class="inline-block px-4 py-2 text-sm font-medium text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 transition duration-150 mt-4 self-center" onclick="loadLesson(${index})">Start Lesson</button>
+                    </div>
+                `;
+            });
+            lessonMenu.innerHTML = lessonMenuStr;
+            modal.classList.remove('hidden');
+            modalOverlay.classList.remove('hidden');
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modal.classList.add('hidden');
+            modalOverlay.classList.add('hidden');
+        }
+
+        async function loadLesson(lessonIndex) {
+            const fileName = `lesson${lessonIndex}.json`;
+            console.log(`Attempting to load: ${fileName}`);
+
+            try {
+                // 1. Fetch the file from the server
+                const response = await fetch(fileName);
+
+                // Check if the HTTP status is successful (e.g., 200-299)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status} when fetching ${fileName}`);
+                }
+
+                // 2. Parse the read data (response body) as JSON
+                const data = await response.json();
+
+                // 3. Destructure the parsed data and set to variables
+                LessonLength = data.length || 0;
+                LessonLines = data.lines || [];
+                KeySequences = data.keys || [];
+
+                // Log the results (optional, for debugging)
+                console.log(`Successfully loaded Lesson ${lessonIndex}:`);
+                console.log(`LessonLines count: ${LessonLines.length}`);
+                console.log(`LessonLength: ${LessonLength}`);
+
+                // Indicate success
+                return true;
+
+            } catch (error) {
+                // Handle network errors, file not found (404), or JSON parsing errors
+                console.error(`Failed to load lesson ${lessonIndex}:`, error.message);
+                // Return null or throw the error, depending on how you want to handle failures
+                return null;
+            }
+        }
+    </script>
+</body>
+
+</html>
