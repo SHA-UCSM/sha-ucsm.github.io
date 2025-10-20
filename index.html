@@ -7,20 +7,14 @@
     <title>Myanmar Typing</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+   
     <style>
         :root {
             --primary-color: #2563eb;
-            /* Blue-600 */
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            /* Use a slightly darker background for better contrast */
+            font-family: sans-serif;
             background-color: rgb(61, 94, 135);
         }
 
@@ -64,13 +58,10 @@
             text-align: center;
             color: #000;
             background: darkgoldenrod;
-            font-family: "Noto Sans Myanmar", sans-serif;
-            font-weight: 500;
-            font-style: normal;
             display: flex;
             justify-content: center;
             align-items: center;
-
+            font-size:large;
             /* preserve spaces so plain ' ' is shown */
             white-space: pre-wrap;
         }
@@ -135,16 +126,15 @@
         .key {
             position: relative;
             display: block;
-            height: 30px;
-            width: 30px;
-            margin: 4px;
-            padding: 3px 6px;
+            height: 53px;
+            width: 53px;
+            margin: 3px;
+            padding: 1px 4px 4px 4px;
+            border-radius: 3px;
+            font-size: 19px;
             color: #3a3a3a;
             background-color: #f7f7f7;
             box-shadow: inset 0 -3px 0 #b5b5b5fd, inset 0px 1px 1px -1px #fff, 0px 1px 1px 0px #7a7777;
-            border-radius: 3px;
-            font-size: 14px;
-            line-height: 1.3;
             white-space: nowrap;
             overflow: hidden;
             user-select: none;
@@ -191,11 +181,8 @@
             vertical-align: middle;
             justify-content: center;
             align-items: center;
-            margin-top: -10%;
+            margin-top: -0.8rem;
             color: #1c1c19;
-            font-family: "Noto Sans Myanmar", sans-serif;
-            font-weight: 500;
-            font-style: normal;
         }
 
         .highlight>.my {
@@ -277,63 +264,6 @@
             background-color: rgb(107, 114, 129);
             /* Miscellaneous/Extra keys */
         }
-
-        /* 2. Small screens (≥ 576px) */
-        @media (min-width: 576px) {
-            .key-display {
-                padding: 1px;
-                margin-top: 8px;
-            }
-
-            .key {
-                height: 33px;
-                width: 33px;
-                margin: 1px;
-                padding: .5px 2px;
-                border-radius: 3px;
-                font-size: 13px;
-            }
-        }
-
-        @media (min-width: 667px) {
-            .key-display {
-                padding: 1px;
-                margin-top: 8px;
-            }
-
-            .key {
-                height: 35px;
-                width: 35px;
-                margin: 2px;
-                padding: 1px 3px;
-                border-radius: 3px;
-                font-size: 14px;
-            }
-        }
-
-        /* 3. Medium screens (≥ 768px) */
-        @media (min-width: 768px) {
-            .key-display {
-                padding: 3px;
-                margin-top: 8px;
-            }
-
-            .key {
-                height: 53px;
-                width: 53px;
-                margin: 3px;
-                padding: 1px 4px 4px 4px;
-                border-radius: 3px;
-                font-size: 19px;
-            }
-        }
-
-        /* 4. Large screens (≥ 992px) */
-        @media (min-width: 992px) {
-            .container {
-                max-width: 960px;
-            }
-        }
     </style>
 </head>
 
@@ -341,7 +271,7 @@
     <div class="main-card" id="practicePage">
         <div class="display-text" id="lessonDisplay"></div>
         <div class="key-display">
-            <div class="hint-box">
+            <div class="hint-box" id="hintBox">
                 <label>Hint : </label>
                 <div style="flex:auto;">
                     <div class="hint" id="hint"></div>
@@ -349,58 +279,19 @@
             </div>
             <div class="keyboard" id="keyboard">
                 <div class="row">
-                    <div id="Backquote" data-finger="ls" class="key">
-                        <div class="en">`</div>
-                        <div class="my"><b>ၐ</b></div>
-                    </div>
-                    <div id="Digit1" data-finger="ls" class="key">
-                        <div class="en">1</div>
-                        <div class="my"><b>၁</b></div>
-                    </div>
-                    <div id="Digit2" data-finger="ls" class="key">
-                        <div class="en">2</div>
-                        <div class="my"><b>၂</b></div>
-                    </div>
-                    <div id="Digit3" data-finger="lr" class="key">
-                        <div class="en">3</div>
-                        <div class="my"><b>၃</b></div>
-                    </div>
-                    <div id="Digit4" data-finger="lm" class="key">
-                        <div class="en">4</div>
-                        <div class="my"><b>၄</b></div>
-                    </div>
-                    <div id="Digit5" data-finger="lf" class="key">
-                        <div class="en">5</div>
-                        <div class="my"><b>၅</b></div>
-                    </div>
-                    <div id="Digit6" data-finger="lf" class="key b-r">
-                        <div class="en">6</div>
-                        <div class="my"><b>၆</b></div>
-                    </div>
-                    <div id="Digit7" data-finger="rf" class="key b-l">
-                        <div class="en">7</div>
-                        <div class="my"><b>၇</b></div>
-                    </div>
-                    <div id="Digit8" data-finger="rm" class="key">
-                        <div class="en">8</div>
-                        <div class="my"><b>၈</b></div>
-                    </div>
-                    <div id="Digit9" data-finger="rr" class="key">
-                        <div class="en">9</div>
-                        <div class="my"><b>၉</b></div>
-                    </div>
-                    <div id="Digit0" data-finger="rs" class="key">
-                        <div class="en">0</div>
-                        <div class="my"><b>၀</b></div>
-                    </div>
-                    <div id="Minus" data-finger="rs" class="key">
-                        <div class="en">-</div>
-                        <div class="my"><b>-</b></div>
-                    </div>
-                    <div id="Equal" data-finger="rs" class="key">
-                        <div class="en">=</div>
-                        <div class="my"><b>=</b></div>
-                    </div>
+                    <div id="Backquote" data-finger="ls" class="key"></div>
+                    <div id="Digit1" data-finger="ls" class="key"></div>
+                    <div id="Digit2" data-finger="ls" class="key"></div>
+                    <div id="Digit3" data-finger="lr" class="key"></div>
+                    <div id="Digit4" data-finger="lm" class="key"></div>
+                    <div id="Digit5" data-finger="lf" class="key"></div>
+                    <div id="Digit6" data-finger="lf" class="key b-r"></div>
+                    <div id="Digit7" data-finger="rf" class="key b-l"></div>
+                    <div id="Digit8" data-finger="rm" class="key"></div>
+                    <div id="Digit9" data-finger="rr" class="key"></div>
+                    <div id="Digit0" data-finger="rs" class="key"></div>
+                    <div id="Minus" data-finger="rs" class="key"></div>
+                    <div id="Equal" data-finger="rs" class="key"></div>
                     <div data-finger="rs" class="key l-size center-right">
                         <span class="key-icon">&#x232B;</span>
                     </div>
@@ -409,108 +300,36 @@
                     <div data-finger="ls" class="key l-size center-left">
                         <span>Tab</span>
                     </div>
-                    <div id="KeyQ" data-finger="ls" class="key">
-                        <div class="en">q</div>
-                        <div class="my"><b>ဆ</b></div>
-                    </div>
-                    <div id="KeyW" data-finger="lr" class="key">
-                        <div class="en">w</div>
-                        <div class="my"><b>တ</b></div>
-                    </div>
-                    <div id="KeyE" data-finger="lm" class="key">
-                        <div class="en">e</div>
-                        <div class="my"><b>န</b></div>
-                    </div>
-                    <div id="KeyR" data-finger="lf" class="key">
-                        <div class="en">r</div>
-                        <div class="my"><b>မ</b></div>
-                    </div>
-                    <div id="KeyT" data-finger="lf" class="key b-r">
-                        <div class="en">t</div>
-                        <div class="my"><b>အ</b></div>
-                    </div>
-                    <div id="KeyY" data-finger="rf" class="key b-l">
-                        <div class="en">y</div>
-                        <div class="my"><b>ပ</b></div>
-                    </div>
-                    <div id="KeyU" data-finger="rf" class="key">
-                        <div class="en">u</div>
-                        <div class="my"><b>က</b></div>
-                    </div>
-                    <div id="KeyI" data-finger="rm" class="key">
-                        <div class="en">i</div>
-                        <div class="my"><b>င</b></div>
-                    </div>
-                    <div id="KeyO" data-finger="rr" class="key">
-                        <div class="en">o</div>
-                        <div class="my"><b>သ</b></div>
-                    </div>
-                    <div id="KeyP" data-finger="rs" class="key">
-                        <div class="en">p</div>
-                        <div class="my"><b>စ</b></div>
-                    </div>
-                    <div id="BracketLeft" data-finger="rs" class="key">
-                        <div class="en">[</div>
-                        <div class="my"><b>ဟ</b></div>
-                    </div>
-                    <div id="BracketRight" data-finger="rs" class="key">
-                        <div class="en">]</div>
-                        <div class="my"><b>ဩ</b></div>
-                    </div>
-                    <div id="Backslash" data-finger="rs" class="key">
-                        <div class="en">\</div>
-                        <div class="my"><b>၏</b></div>
-                    </div>
+                    <div id="KeyQ" data-finger="ls" class="key"></div>
+                    <div id="KeyW" data-finger="lr" class="key"></div>
+                    <div id="KeyE" data-finger="lm" class="key"></div>
+                    <div id="KeyR" data-finger="lf" class="key"></div>
+                    <div id="KeyT" data-finger="lf" class="key b-r"></div>
+                    <div id="KeyY" data-finger="rf" class="key b-l"></div>
+                    <div id="KeyU" data-finger="rf" class="key"></div>
+                    <div id="KeyI" data-finger="rm" class="key"></div>
+                    <div id="KeyO" data-finger="rr" class="key"></div>
+                    <div id="KeyP" data-finger="rs" class="key"></div>
+                    <div id="BracketLeft" data-finger="rs" class="key"></div>
+                    <div id="BracketRight" data-finger="rs" class="key"></div>
+                    <div id="Backslash" data-finger="rs" class="key"></div>
                 </div>
                 <div class="row">
                     <div id="CapsLock" data-finger="ls" class="key xl-size center-left" onclick="openCapsLock();">
                         <span class="key-icon2">&#x21EA;</span>
                         <span class="caps-dot">•</span>
                     </div>
-                    <div id="KeyA" data-finger="ls" class="key">
-                        <div class="en">a</div>
-                        <div class="my"><b>ေ</b></div>
-                    </div>
-                    <div id="KeyS" data-finger="lr" class="key">
-                        <div class="en">s</div>
-                        <div class="my"><b>ျ</b></div>
-                    </div>
-                    <div id="KeyD" data-finger="lm" class="key">
-                        <div class="en">d</div>
-                        <div class="my"><b>ိ</b></div>
-                    </div>
-                    <div id="KeyF" data-finger="lf" class="key">
-                        <div class="en">f</div>
-                        <div class="my"><b>်</b></div>
-                    </div>
-                    <div id="KeyG" data-finger="lf" class="key b-r">
-                        <div class="en">g</div>
-                        <div class="my"><b>ါ</b></div>
-                    </div>
-                    <div id="KeyH" data-finger="rf" class="key b-l">
-                        <div class="en">h</div>
-                        <div class="my"><b>့</b></div>
-                    </div>
-                    <div id="KeyJ" data-finger="rf" class="key">
-                        <div class="en">j</div>
-                        <div class="my"><b>ြ</b></div>
-                    </div>
-                    <div id="KeyK" data-finger="rm" class="key">
-                        <div class="en">k</div>
-                        <div class="my"><b>ု</b></div>
-                    </div>
-                    <div id="KeyL" data-finger="rr" class="key">
-                        <div class="en">l</div>
-                        <div class="my"><b>ူ</b></div>
-                    </div>
-                    <div id="Semicolon" data-finger="rs" class="key">
-                        <div class="en">;</div>
-                        <div class="my"><b>း</b></div>
-                    </div>
-                    <div id="Quote" data-finger="rs" class="key">
-                        <div class="en">'</div>
-                        <div class="my"><b>'</b></div>
-                    </div>
+                    <div id="KeyA" data-finger="ls" class="key"></div>
+                    <div id="KeyS" data-finger="lr" class="key"></div>
+                    <div id="KeyD" data-finger="lm" class="key"></div>
+                    <div id="KeyF" data-finger="lf" class="key"></div>
+                    <div id="KeyG" data-finger="lf" class="key b-r"></div>
+                    <div id="KeyH" data-finger="rf" class="key b-l"></div>
+                    <div id="KeyJ" data-finger="rf" class="key"></div>
+                    <div id="KeyK" data-finger="rm" class="key"></div>
+                    <div id="KeyL" data-finger="rr" class="key"></div>
+                    <div id="Semicolon" data-finger="rs" class="key"></div>
+                    <div id="Quote" data-finger="rs" class="key"></div>
                     <div id="Enter" data-finger="rs" class="key xl-size center-right">
                         <span>Enter</span>
                     </div>
@@ -519,46 +338,16 @@
                     <div id="ShiftLeft" data-finger="ls" class="key xxl-size center-left">
                         <span>Shift</span>
                     </div>
-                    <div id="KeyZ" data-finger="ls" class="key">
-                        <div class="en">z</div>
-                        <div class="my"><b>ဖ</b></div>
-                    </div>
-                    <div id="KeyX" data-finger="lr" class="key">
-                        <div class="en">x</div>
-                        <div class="my"><b>ထ</b></div>
-                    </div>
-                    <div id="KeyC" data-finger="lm" class="key">
-                        <div class="en">c</div>
-                        <div class="my"><b>ခ</b></div>
-                    </div>
-                    <div id="KeyV" data-finger="lf" class="key">
-                        <div class="en">v</div>
-                        <div class="my"><b>လ</b></div>
-                    </div>
-                    <div id="KeyB" data-finger="lf" class="key b-r">
-                        <div class="en">b</div>
-                        <div class="my"><b>ဘ</b></div>
-                    </div>
-                    <div id="KeyN" data-finger="rf" class="key b-l">
-                        <div class="en">n</div>
-                        <div class="my"><b>ည</b></div>
-                    </div>
-                    <div id="KeyM" data-finger="rf" class="key">
-                        <div class="en">m</div>
-                        <div class="my"><b>ာ</b></div>
-                    </div>
-                    <div id="Comma" data-finger="rm" class="key">
-                        <div class="en">,</div>
-                        <div class="my"><b>,</b></div>
-                    </div>
-                    <div id="Period" data-finger="rr" class="key">
-                        <div class="en">.</div>
-                        <div class="my"><b>.</b></div>
-                    </div>
-                    <div id="Slash" data-finger="rs" class="key">
-                        <div class="en">/</div>
-                        <div class="my"><b>/</b></div>
-                    </div>
+                    <div id="KeyZ" data-finger="ls" class="key"></div>
+                    <div id="KeyX" data-finger="lr" class="key"></div>
+                    <div id="KeyC" data-finger="lm" class="key"></div>
+                    <div id="KeyV" data-finger="lf" class="key"></div>
+                    <div id="KeyB" data-finger="lf" class="key b-r"></div>
+                    <div id="KeyN" data-finger="rf" class="key b-l"></div>
+                    <div id="KeyM" data-finger="rf" class="key"></div>
+                    <div id="Comma" data-finger="rm" class="key"></div>
+                    <div id="Period" data-finger="rr" class="key"></div>
+                    <div id="Slash" data-finger="rs" class="key"></div>
                     <div id="ShiftRight" data-finger="rs" class="key xxl-size center-right">
                         <span>Shift</span>
                     </div>
@@ -662,6 +451,26 @@
                                 <span class="h-2 w-2 bg-white rounded-full scale-0 peer-checked:scale-100 transition duration-150"></span>
                             </span>
                             <span class="text-gray-700">Mute Song</span>
+                        </label>
+                    </div>
+                </div>
+                 <div class="flex flex-col">
+                    <h2 class="text-lg font-semibold mb-2">Hint Box</h2>
+                    <div class="flex items-center space-x-6">
+                        <label for="showHint" class="flex items-center cursor-pointer space-x-2">
+                            <input type="radio" name="showHint" id="showHint" value="true" class="peer hidden" onchange="updateHintSetting(this.value)">
+                            <span class="w-4 h-4 border-2 border-gray-400 rounded-full flex items-center justify-center peer-checked:border-blue-500 peer-checked:bg-blue-500 transition duration-150">
+                                <span class="h-2 w-2 bg-white rounded-full scale-0 peer-checked:scale-100 transition duration-150"></span>
+                            </span>
+                            <span class="text-gray-700">Show Hint Box</span>
+                        </label>
+
+                        <label for="hideHint" class="flex items-center cursor-pointer space-x-2">
+                            <input type="radio" name="showHint" id="hideHint" value="false" class="peer hidden" onchange="updateHintSetting(this.value)">
+                            <span class="w-4 h-4 border-2 border-gray-400 rounded-full flex items-center justify-center peer-checked:border-blue-500 peer-checked:bg-blue-500 transition duration-150">
+                                <span class="h-2 w-2 bg-white rounded-full scale-0 peer-checked:scale-100 transition duration-150"></span>
+                            </span>
+                            <span class="text-gray-700">Hide Hint Box</span>
                         </label>
                     </div>
                 </div>
@@ -773,19 +582,20 @@
 
         var currentLesson = 0;
         var lessonLines = [];
-        var KeySequences = [];
+        var keySequences = [];
         var lessonLength = 0;
         var writingOrder = ''; // Phonetic | Visual
 
         var curLine = 0; var curWord = 0; var curIdx = 0;
 
-        var currentKeyboardCase = 'lowercase';  // Save current keyboard case (Upper/Lower case)
+        var currentKeyboardCase = '';           // Save current keyboard case (Upper/Lower case)
         var currentKey = '';                    // Save current lesson key (KeyU, KeyA, etc.)
         var currentShiftKey = '';               // Save current sift key
 
         var capLockObj = document.getElementById('CapsLock');
 
         var lessonDisplayObj = document.getElementById('lessonDisplay');
+        var hintBoxObj = document.getElementById('hintBox');
         var hintObj = document.getElementById('hint');
 
         var typingStatus = 0; // 0 - No lesson selected, 1 - Lesson selected, 2 - Typing starting, 3 - Complete Lesson
@@ -796,6 +606,7 @@
         var endTime;
         var audioCtx;
         var enableAudio = true;
+        var showHint = true;
 
         const Lessons = [
             'ဖိုးမောင် ဘောလုံးကန်နေသည်။ မန်ယူ ဝတ်စုံကို ဝတ်ထားကာ ကန်နေသည် ...',
@@ -868,6 +679,8 @@
         });
         
         window.onload = function () {
+            labelKeyboard('lowercase');
+
             const _writingOrder = localStorage.getItem('writingOrder');
             writingOrder = _writingOrder !== null? _writingOrder : 'Visual';
             console.log(writingOrder);
@@ -875,6 +688,16 @@
             const _audioStatus = localStorage.getItem('enableAudio');
             enableAudio = _audioStatus === 'false' ? false : true;
             console.log(enableAudio);
+
+            const _showHint = localStorage.getItem('showHint');
+            showHint = _showHint === 'false' ? false : true;
+            console.log(showHint);
+
+            if(showHint) {
+                hintBoxObj.classList.remove('hidden');
+            } else {
+                hintBoxObj.classList.add('hidden');
+            }
 
             if(lessonLength == 0) {
                 openLessonModal();
@@ -885,7 +708,9 @@
         
         function startTyping() {
             typingStatus = 1;
-
+            labelKeyboard('lowercase');
+            removeHelight();
+            
             if(lessonLength > 0) {
                 lessonDisplayObj.innerHTML = 'Press <b>Shift</b> + <b>Space</b> to start!';
                 document.getElementById('ShiftLeft').classList.add('highlight');
@@ -914,7 +739,9 @@
 
         function displayHint() {
             let hint = '';
-            let _char = lessonLines[curLine][curWord][KeySequences[curLine][curWord][0]];
+            console.log('curLine, curWord', curLine, curWord);
+
+            let _char = lessonLines[curLine][curWord][keySequences[curLine][curWord][0]];
             // ID [LineNo_Word_CharIndex]
             if (_char == ' ') {
                 hint += '<div id="H' + curLine + '_' + curWord + '_' + 0 + '" class="cursor">Space</div>';
@@ -929,10 +756,10 @@
             let l = lessonLines[curLine][curWord].length;
 
             for (let i = 1; i < l; i++) {
-                if (lessonLines[curLine][curWord][KeySequences[curLine][curWord][i]] == ' ')
+                if (lessonLines[curLine][curWord][keySequences[curLine][curWord][i]] == ' ')
                     hint = '+<div id="H' + curLine + '_' + curWord + '_' + i + '">Space</div>';
                 else
-                    hint += '+<div id="H' + curLine + '_' + curWord + '_' + i + '">' + lessonLines[curLine][curWord][KeySequences[curLine][curWord][i]] + '</div>';
+                    hint += '+<div id="H' + curLine + '_' + curWord + '_' + i + '">' + lessonLines[curLine][curWord][keySequences[curLine][curWord][i]] + '</div>';
             }
 
             hintObj.innerHTML = hint;
@@ -1018,8 +845,6 @@
                 }
                 else {
                     Object.keys(LOWER_CASE).forEach((key) => {
-                        //document.getElementById(key).innerHTML = '<div style="display: inline-block;vertical-align: top;">'+LOWER_CASE[key].en+'</div><div style="padding-left: 7px;display: inline-block;font-size: large;"><b>'+LOWER_CASE[key].my+'</b></div>';
-                        // document.getElementById(key).innerHTML = '<span>'+LOWER_CASE[key].en+'<br/>'+LOWER_CASE[key].my+'</span>';
                         document.getElementById(key).innerHTML = '<div class="en">' + LOWER_CASE[key].en + '</div><div class="my">' + LOWER_CASE[key].my + '</div>';
                     });
                 }
@@ -1028,7 +853,7 @@
 
         // Search key in UPPRER_CASE / LOWER_CASE objects and call "Helight()" function to highlight related key
         function searchObject() {
-            let CurrentCharacter = lessonLines[curLine][curWord][KeySequences[curLine][curWord][curIdx]];
+            let CurrentCharacter = lessonLines[curLine][curWord][keySequences[curLine][curWord][curIdx]];
 
             if (CurrentCharacter.charCodeAt(0) == 10 || CurrentCharacter.charCodeAt(0) == 13) {
                 helightKey('Enter');
@@ -1157,7 +982,7 @@
         function resetVariable() {
             currentLesson = 0;
             lessonLines = [];
-            KeySequences = [];
+            keySequences = [];
             lessonLength = 0;
             curLine = 0; 
             curWord = 0; 
@@ -1213,8 +1038,6 @@
         function openLessonModal() {
             const typingProgress = localStorage.getItem('typingProgress');
             const progressArray = JSON.parse(typingProgress);
-            console.log('typingProgress', typingProgress)
-            console.log('progressArray', progressArray)
             let lessonMenuStr = '';
             
             Lessons.forEach((lesson, index) => {
@@ -1222,7 +1045,7 @@
                 let reportText = '';
                 if (progressArray?.[index]?.[0] !== undefined) {
                     color = 'bg-green-200';
-                    reportText = `<hr class="text-white my-3" /><p class="text-xs text-center text-purple-600">CPM: ${progressArray[index][0]} | Accuracy ${progressArray[index][1]}%</p>`;
+                    reportText = `<hr class="text-white my-3" /><p class="text-xs text-center text-purple-600">CPM: ${progressArray[index][0]} | Accuracy: ${progressArray[index][1]}%</p>`;
                 }
                 lessonMenuStr += `<div class="${color} p-6 rounded-xl border border-indigo-200 flex flex-col justify-between">
                         <div>
@@ -1255,6 +1078,13 @@
             else {
                 document.querySelector('input[name="enableAudio"][value="false"]').checked = true;
             }
+
+            if(showHint) {
+                document.querySelector('input[name="showHint"][value="true"]').checked = true;
+            }
+            else {
+                document.querySelector('input[name="showHint"][value="false"]').checked = true;
+            }
             settingModal.classList.remove('hidden');
             modalOverlay.classList.remove('hidden');
         }
@@ -1280,10 +1110,12 @@
 
                 const data = await response.json();
 
+                resetVariable();
+
                 currentLesson = lessonIndex;
                 lessonLength = data.length || 0;
                 lessonLines = data.lines || [];
-                KeySequences = writingOrder === 'Phonetic' ? data.phonetic_keys : data.visual_keys || [];
+                keySequences = writingOrder === 'Phonetic' ? data.phonetic_keys : data.visual_keys || [];
 
                 startTyping();
 
@@ -1307,6 +1139,17 @@
             enableAudio = value === 'true';
             localStorage.setItem('enableAudio', enableAudio);
             console.log(enableAudio);
+        }
+        
+         function updateHintSetting(value) {
+            showHint = value === 'true';
+            localStorage.setItem('showHint', showHint);
+            if(showHint) {
+                hintBoxObj.classList.remove('hidden');
+            }else {
+                hintBoxObj.classList.add('hidden');
+            }
+            console.log(showHint);
         }
     </script>
 </body>
