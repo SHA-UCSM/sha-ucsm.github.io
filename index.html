@@ -463,7 +463,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div id="CapsLock" data-finger="ls" class="key xl-size center-left" onclick="CapOn();">
+                    <div id="CapsLock" data-finger="ls" class="key xl-size center-left" onclick="openCapsLock();">
                         <span class="key-icon2">&#x21EA;</span>
                         <span class="caps-dot">•</span>
                     </div>
@@ -582,14 +582,20 @@
                     <div data-finger="x" class="key center">
                         <span>Alt</span>
                     </div>
-                    <div data-finger="x" class="key center">
-                        <span class="key-icon">☰</span>
+                    <div data-finger="x" class="key center" style="fill: #3a3a1999;" onclick="openLessonModal();">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="settings-icon" data-name="Layer 1" viewBox="0 0 32 32">
+                            <title/>
+                            <rect x="8.05" y="17.525" width="1.9" height="1.899" rx="0.5"/>
+                            <path d="M27.4,3.6H4.6a1,1,0,0,0-1,1V27.4a1,1,0,0,0,1,1H27.4a1,1,0,0,0,1-1V4.6A1,1,0,0,0,27.4,3.6ZM10.95,23.874a1.5,1.5,0,0,1-1.5,1.5h-.9a1.5,1.5,0,0,1-1.5-1.5v-.9a1.5,1.5,0,0,1,1.5-1.5h.9a1.5,1.5,0,0,1,1.5,1.5Zm0-4.949a1.5,1.5,0,0,1-1.5,1.5h-.9a1.5,1.5,0,0,1-1.5-1.5v-.9a1.5,1.5,0,0,1,1.5-1.5h.9a1.5,1.5,0,0,1,1.5,1.5Zm0-4.95a1.5,1.5,0,0,1-1.5,1.5h-.9a1.5,1.5,0,0,1-1.5-1.5v-.9a1.5,1.5,0,0,1,1.5-1.5h.9a1.5,1.5,0,0,1,1.5,1.5Zm0-4.95a1.5,1.5,0,0,1-1.5,1.5h-.9a1.5,1.5,0,0,1-1.5-1.5v-.9a1.5,1.5,0,0,1,1.5-1.5h.9a1.5,1.5,0,0,1,1.5,1.5Zm13.5,14.9H12.218a.5.5,0,0,1,0-1H24.45a.5.5,0,0,1,0,1Zm0-4.95H12.218a.5.5,0,0,1,0-1H24.45a.5.5,0,0,1,0,1Zm0-4.95H12.218a.5.5,0,0,1,0-1H24.45a.5.5,0,0,1,0,1Zm0-4.95H12.218a.5.5,0,0,1,0-1H24.45a.5.5,0,0,1,0,1Z"/>
+                        </svg>
                     </div>
-                    <div data-finger="x" class="key center">
-                        <span>Ctrl</span>
+                    <div data-finger="x" class="key center" onclick="openSettingModal();">
+                        <svg height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path fill="#3a3a1999" d="M424.5,216.5h-15.2c-12.4,0-22.8-10.7-22.8-23.4c0-6.4,2.7-12.2,7.5-16.5l9.8-9.6c9.7-9.6,9.7-25.3,0-34.9l-22.3-22.1  c-4.4-4.4-10.9-7-17.5-7c-6.6,0-13,2.6-17.5,7l-9.4,9.4c-4.5,5-10.5,7.7-17,7.7c-12.8,0-23.5-10.4-23.5-22.7V89.1  c0-13.5-10.9-25.1-24.5-25.1h-30.4c-13.6,0-24.4,11.5-24.4,25.1v15.2c0,12.3-10.7,22.7-23.5,22.7c-6.4,0-12.3-2.7-16.6-7.4l-9.7-9.6  c-4.4-4.5-10.9-7-17.5-7s-13,2.6-17.5,7L110,132c-9.6,9.6-9.6,25.3,0,34.8l9.4,9.4c5,4.5,7.8,10.5,7.8,16.9  c0,12.8-10.4,23.4-22.8,23.4H89.2c-13.7,0-25.2,10.7-25.2,24.3V256v15.2c0,13.5,11.5,24.3,25.2,24.3h15.2  c12.4,0,22.8,10.7,22.8,23.4c0,6.4-2.8,12.4-7.8,16.9l-9.4,9.3c-9.6,9.6-9.6,25.3,0,34.8l22.3,22.2c4.4,4.5,10.9,7,17.5,7  c6.6,0,13-2.6,17.5-7l9.7-9.6c4.2-4.7,10.2-7.4,16.6-7.4c12.8,0,23.5,10.4,23.5,22.7v15.2c0,13.5,10.8,25.1,24.5,25.1h30.4  c13.6,0,24.4-11.5,24.4-25.1v-15.2c0-12.3,10.7-22.7,23.5-22.7c6.4,0,12.4,2.8,17,7.7l9.4,9.4c4.5,4.4,10.9,7,17.5,7  c6.6,0,13-2.6,17.5-7l22.3-22.2c9.6-9.6,9.6-25.3,0-34.9l-9.8-9.6c-4.8-4.3-7.5-10.2-7.5-16.5c0-12.8,10.4-23.4,22.8-23.4h15.2  c13.6,0,23.3-10.7,23.3-24.3V256v-15.2C447.8,227.2,438.1,216.5,424.5,216.5z M336.8,256L336.8,256c0,44.1-35.7,80-80,80  c-44.3,0-80-35.9-80-80l0,0l0,0c0-44.1,35.7-80,80-80C301.1,176,336.8,211.9,336.8,256L336.8,256z"/>
+                        </svg>
                     </div>
-                    <div id="Help" data-finger="x" class="key center" onclick="openModal();">
-                        <span class="key-icon">🛈</span>
+                    <div id="Help" data-finger="x" class="key center" onclick="openHelpModal();">
+                        <svg id="Layer_1" style="enable-background:new 0 0 64 64;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><path d="M32.331,46.326c-1.753,0-3.278-0.711-4.32-2.024c-0.971-1.222-1.384-2.833-1.135-4.421l1.196-7.618    l-0.276,0.142c-1.383,0.711-3.081,0.166-3.792-1.217c-0.711-1.383-0.166-3.081,1.217-3.792l5.205-2.676    c0.943-0.485,2.078-0.399,2.937,0.222c0.859,0.621,1.297,1.672,1.132,2.719L32.45,40.685c0.41-0.043,1.467-0.301,3.435-1.668    c1.277-0.888,3.032-0.572,3.919,0.705c0.888,1.277,0.572,3.032-0.705,3.919c-2.459,1.71-4.568,2.585-6.446,2.677    C32.545,46.324,32.437,46.326,32.331,46.326z" style="fill:#515151;"/></g><g><circle cx="32.803" cy="19.233" r="3.143" style="fill:#515151;"/></g><g><g><path d="M32,59.5C16.836,59.5,4.5,47.164,4.5,32S16.836,4.5,32,4.5S59.5,16.837,59.5,32     S47.163,59.5,32,59.5z M32,10.132c-12.058,0-21.868,9.81-21.868,21.868S19.942,53.868,32,53.868     c12.058,0,21.868-9.81,21.868-21.868S44.058,10.132,32,10.132z" style="fill:#515151;"/></g></g></g></svg>
                     </div>
                 </div>
             </div>
@@ -598,16 +604,67 @@
 
     <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden"></div>
 
-    <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white w-full max-w-2xl rounded-xl shadow-2xl flex flex-col overflow-hidden">
-
-            <div class="flex justify-between items-center pl-6 py-2 pr-4 border-b border-gray-200">
+    <div id="lessonModal" class="fixed inset-0 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-slate-300 w-full max-w-3xl rounded-xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex justify-between items-center pl-6 py-2 pr-4 border-b border-white">
                 <h3 class="text-2xl font-bold text-gray-800">Lessons</h3>
-                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl" onclick="closeModal()">&times;</button>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl" onclick="closeLessonModal()">&times;</button>
             </div>
-
             <div class="p-6 overflow-y-auto max-h-[60vh] thin-scrollbar space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lessonMenu"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lessonModalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingModal" class="fixed inset-0 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-slate-300 w-full max-w-2xl rounded-xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="flex justify-between items-center pl-6 py-2 pr-4 border-b border-white">
+                <h3 class="text-2xl font-bold text-gray-800">Settings</h3>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl" onclick="closeSettingModal()">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[60vh] thin-scrollbar space-y-4" id="modalBody">
+                <div class="flex flex-col">
+                    <h2 class="text-lg font-semibold mb-2">Writing Order</h2>
+
+                    <div class="flex items-center space-x-6">
+                        <label for="visual" class="flex items-center cursor-pointer space-x-2">
+                            <input type="radio" name="writingOrder" id="visual" value="Visual" class="peer hidden" onchange="updateWritingOrder(this.value)">
+                            <span class="w-4 h-4 border-2 border-gray-400 rounded-full flex items-center justify-center peer-checked:border-blue-500 peer-checked:bg-blue-500 transition duration-150">
+                                <span class="h-2 w-2 bg-white rounded-full scale-0 peer-checked:scale-100 transition duration-150"></span>
+                            </span>
+                            <span class="text-gray-700">Visual Order</span>
+                        </label>
+
+                        <label for="phonetic" class="flex items-center cursor-pointer space-x-2">
+                            <input type="radio" name="writingOrder" id="phonetic" value="Phonetic" class="peer hidden" onchange="updateWritingOrder(this.value)">
+                            <span class="w-4 h-4 border-2 border-gray-400 rounded-full flex items-center justify-center peer-checked:border-blue-500 peer-checked:bg-blue-500 transition duration-150">
+                                <span class="h-2 w-2 bg-white rounded-full scale-0 peer-checked:scale-100 transition duration-150"></span>
+                            </span>
+                            <span class="text-gray-700">Phonetic Order</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <h2 class="text-lg font-semibold mb-2">Play Audio</h2>
+
+                    <div class="flex items-center space-x-6">
+                        <label for="enableAudio" class="flex items-center cursor-pointer space-x-2">
+                            <input type="radio" name="enableAudio" id="enableAudio" value="true" class="peer hidden" onchange="updateAudoSetting(this.value)">
+                            <span class="w-4 h-4 border-2 border-gray-400 rounded-full flex items-center justify-center peer-checked:border-blue-500 peer-checked:bg-blue-500 transition duration-150">
+                                <span class="h-2 w-2 bg-white rounded-full scale-0 peer-checked:scale-100 transition duration-150"></span>
+                            </span>
+                            <span class="text-gray-700">Play Song</span>
+                        </label>
+
+                        <label for="disableAudio" class="flex items-center cursor-pointer space-x-2">
+                            <input type="radio" name="enableAudio" id="disableAudio" value="false" class="peer hidden" onchange="updateAudoSetting(this.value)">
+                            <span class="w-4 h-4 border-2 border-gray-400 rounded-full flex items-center justify-center peer-checked:border-blue-500 peer-checked:bg-blue-500 transition duration-150">
+                                <span class="h-2 w-2 bg-white rounded-full scale-0 peer-checked:scale-100 transition duration-150"></span>
+                            </span>
+                            <span class="text-gray-700">Mute Song</span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -714,29 +771,31 @@
             Slash: { 'my': '?', 'en': '?' }
         };
 
-        var LessonLines = [];
+        var currentLesson = 0;
+        var lessonLines = [];
         var KeySequences = [];
-        var LessonLength = 0;
-        var WritingOrder = 'P'; // Phonetic (P) | Visual (V)
+        var lessonLength = 0;
+        var writingOrder = ''; // Phonetic | Visual
 
-        var CurLine = 0; var CurWord = 0; var CurIdx = 0;
+        var curLine = 0; var curWord = 0; var curIdx = 0;
 
-        var CurrentKeyboardCase = 'lowercase';  // Save current keyboard case (Upper/Lower case)
-        var CurrentKey = '';                    // Save current lesson key (KeyU, KeyA, etc.)
-        var CurrentShiftKey = '';               // Save current sift key
+        var currentKeyboardCase = 'lowercase';  // Save current keyboard case (Upper/Lower case)
+        var currentKey = '';                    // Save current lesson key (KeyU, KeyA, etc.)
+        var currentShiftKey = '';               // Save current sift key
 
-        var CapLock = document.getElementById('CapsLock');
+        var capLockObj = document.getElementById('CapsLock');
 
-        var LessonDisplay = document.getElementById('lessonDisplay');
-        var Hint = document.getElementById('hint');
+        var lessonDisplayObj = document.getElementById('lessonDisplay');
+        var hintObj = document.getElementById('hint');
 
-        var TypingStatus = 0; // 0 - No lesson selected, 1 - Lesson selected, 2 - Typing starting, 3 - Complete Lesson
+        var typingStatus = 0; // 0 - No lesson selected, 1 - Lesson selected, 2 - Typing starting, 3 - Complete Lesson
 
         // For Report(Character Per Minute, Accuracy)
-        var HitCount = 0;
-        var StartTime;
-        var EndTime;
+        var hitCount = 0;
+        var startTime;
+        var endTime;
         var audioCtx;
+        var enableAudio = true;
 
         window.addEventListener("keydown", function (event) {
             let k = event.code;
@@ -745,28 +804,28 @@
             }
 
             // To start lesson ShiftKey & Space
-            if (TypingStatus == 1 && event.shiftKey && event.code == 'Space') {
-                TypingStatus = 2;
-                LessonDisplay.focus();
+            if (typingStatus == 1 && event.shiftKey && event.code == 'Space') {
+                typingStatus = 2;
+                lessonDisplayObj.focus();
 
                 document.getElementById('ShiftLeft').classList.remove('highlight');
                 document.getElementById('Space').classList.remove('highlight');
-                CapLock.classList.remove('highlight');
+                capLockObj.classList.remove('highlight');
 
                 DisplayLines();
                 DisplayHint();
                 SearchObject();
 
-                StartTime = new Date();
+                startTime = new Date();
             }
 
             // Check current character equal to event.key ('က','u')
-            else if (TypingStatus == 2) {
+            else if (typingStatus == 2) {
                 if (k == 'Backquote' || k == 'Digit1' || k == 'Digit2' || k == 'Digit3' || k == 'Digit4' || k == 'Digit5' || k == 'Digit6' || k == 'Digit7' || k == 'Digit8' || k == 'Digit9' || k == 'Digit0' || k == 'Minus' || k == 'Equal' || k == 'Backspace' || k == 'Tab' || k == 'KeyQ' || k == 'KeyW' || k == 'KeyE' || k == 'KeyR' || k == 'KeyT' || k == 'KeyY' || k == 'KeyU' || k == 'KeyI' || k == 'KeyO' || k == 'KeyP' || k == 'BracketLeft' || k == 'BracketRight' || k == 'Backslash' || k == 'KeyA' || k == 'KeyS' || k == 'KeyD' || k == 'KeyF' || k == 'KeyG' || k == 'KeyH' || k == 'KeyJ' || k == 'KeyK' || k == 'KeyL' || k == 'Semicolon' || k == 'Quote' || k == 'Enter' || k == 'KeyZ' || k == 'KeyX' || k == 'KeyC' || k == 'KeyV' || k == 'KeyB' || k == 'KeyN' || k == 'KeyM' || k == 'Comma' || k == 'Period' || k == 'Slash' || k == 'Space') {
-                    HitCount++;
+                    hitCount++;
 
-                    if (CurrentShiftKey !== '') {
-                        if (event.code == CurrentKey && event.shiftKey) {
+                    if (currentShiftKey !== '') {
+                        if (event.code == currentKey && event.shiftKey) {
                             playKeySound();
                             NextChar();
                         }
@@ -775,7 +834,7 @@
                         }
                     }
                     else {
-                        if (event.code == CurrentKey && !event.shiftKey) {
+                        if (event.code == currentKey && !event.shiftKey) {
                             playKeySound();
                             NextChar();
                         }
@@ -788,93 +847,95 @@
             event.preventDefault();
         });
 
-        function main() {
-            TypingStatus = 1;
-            CurrentTypingIndex = 0;
-            CurrentKey = '';
-            CurrentShiftKey = '';
-            HitCount = 0;
+        function StartTyping() {
+            typingStatus = 1;
 
-            LessonDisplay.innerHTML = 'Press <b>Shift</b> + <b>Space</b> to start!';
-
-            document.getElementById('ShiftLeft').classList.add('highlight');
-            document.getElementById('Space').classList.add('highlight');
+            if(lessonLength > 0) {
+                lessonDisplayObj.innerHTML = 'Press <b>Shift</b> + <b>Space</b> to start!';
+                document.getElementById('ShiftLeft').classList.add('highlight');
+                document.getElementById('Space').classList.add('highlight');
+            }
+            else {
+                lessonDisplayObj.innerHTML = 'No lesson selected! Please choose one lesson first!';
+                document.getElementById('ShiftLeft').classList.remove('highlight');
+                document.getElementById('Space').classList.remove('highlight');
+            }            
         }
 
         function DisplayLines() {
             let line = '';
-            LessonLines[CurLine].forEach(function (word, idx) {
-                line += '<span id="D' + CurLine + '_' + idx + '">' + word + '</span>';
+            lessonLines[curLine].forEach(function (word, idx) {
+                line += '<span id="D' + curLine + '_' + idx + '">' + word + '</span>';
             });
 
             // ### Key Magic ###
             line = line.replace('', '၎င်း');
 
-            LessonDisplay.innerHTML = line;
+            lessonDisplayObj.innerHTML = line;
 
-            document.getElementById('D' + CurLine + '_' + CurWord).className = 'cursor';
+            document.getElementById('D' + curLine + '_' + curWord).className = 'cursor';
         }
 
         function DisplayHint() {
             let hint = '';
-            let _char = LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][0]];
+            let _char = lessonLines[curLine][curWord][KeySequences[curLine][curWord][0]];
             // ID [LineNo_Word_CharIndex]
             if (_char == ' ') {
-                hint += '<div id="H' + CurLine + '_' + CurWord + '_' + 0 + '" class="cursor">Space</div>';
+                hint += '<div id="H' + curLine + '_' + curWord + '_' + 0 + '" class="cursor">Space</div>';
             }
             else if (_char == '') {
-                hint += '<div id="H' + CurLine + '_' + CurWord + '_' + 0 + '" class="cursor">၎င်း</div>';
+                hint += '<div id="H' + curLine + '_' + curWord + '_' + 0 + '" class="cursor">၎င်း</div>';
             }
             else {
-                hint += '<div id="H' + CurLine + '_' + CurWord + '_' + 0 + '" class="cursor">' + _char + '</div>';
+                hint += '<div id="H' + curLine + '_' + curWord + '_' + 0 + '" class="cursor">' + _char + '</div>';
             }
 
-            let l = LessonLines[CurLine][CurWord].length;
+            let l = lessonLines[curLine][curWord].length;
 
             for (let i = 1; i < l; i++) {
-                if (LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][i]] == ' ')
-                    hint = '+<div id="H' + CurLine + '_' + CurWord + '_' + i + '">Space</div>';
+                if (lessonLines[curLine][curWord][KeySequences[curLine][curWord][i]] == ' ')
+                    hint = '+<div id="H' + curLine + '_' + curWord + '_' + i + '">Space</div>';
                 else
-                    hint += '+<div id="H' + CurLine + '_' + CurWord + '_' + i + '">' + LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][i]] + '</div>';
+                    hint += '+<div id="H' + curLine + '_' + curWord + '_' + i + '">' + lessonLines[curLine][curWord][KeySequences[curLine][curWord][i]] + '</div>';
             }
 
-            Hint.innerHTML = hint;
+            hintObj.innerHTML = hint;
         }
 
         function NextChar() {
             RemoveHelight();
 
             // In the current word loop => move to next char of current word
-            if (CurIdx < LessonLines[CurLine][CurWord].length - 1) {
-                document.getElementById('H' + CurLine + '_' + CurWord + '_' + CurIdx).className = 'finish';
+            if (curIdx < lessonLines[curLine][curWord].length - 1) {
+                document.getElementById('H' + curLine + '_' + curWord + '_' + curIdx).className = 'finish';
 
-                CurIdx++;
+                curIdx++;
                 SearchObject();
 
-                document.getElementById('H' + CurLine + '_' + CurWord + '_' + CurIdx).className = 'cursor';
+                document.getElementById('H' + curLine + '_' + curWord + '_' + curIdx).className = 'cursor';
             }
 
             // In the current line but out of word => move to next word
-            else if (CurWord < LessonLines[CurLine].length - 1) {
-                CurWord++;
-                CurIdx = 0;
+            else if (curWord < lessonLines[curLine].length - 1) {
+                curWord++;
+                curIdx = 0;
 
                 DisplayHint();
 
                 SearchObject();
 
-                document.getElementById('D' + CurLine + '_' + CurWord).className = 'cursor';
+                document.getElementById('D' + curLine + '_' + curWord).className = 'cursor';
 
-                if (CurWord > 0) {
-                    document.getElementById('D' + CurLine + '_' + (CurWord - 1)).className = 'finish';
+                if (curWord > 0) {
+                    document.getElementById('D' + curLine + '_' + (curWord - 1)).className = 'finish';
                 }
             }
 
             // In the lesson but out of the line => move to next line
-            else if (CurLine < LessonLines.length - 1) {
-                CurLine++;
-                CurWord = 0;
-                CurIdx = 0;
+            else if (curLine < lessonLines.length - 1) {
+                curLine++;
+                curWord = 0;
+                curIdx = 0;
 
                 DisplayLines();
 
@@ -882,18 +943,18 @@
 
                 SearchObject();
 
-                document.getElementById('D' + CurLine + '_' + CurWord).className = 'cursor';
+                document.getElementById('D' + curLine + '_' + curWord).className = 'cursor';
 
-                if (CurWord > 0) {
-                    document.getElementById('D' + CurLine + '_' + (CurWord - 1)).className = 'finish';
+                if (curWord > 0) {
+                    document.getElementById('D' + curLine + '_' + (curWord - 1)).className = 'finish';
                 }
             }
 
             else {
                 // Lesson Complete
-                EndTime = new Date();
-                TypingStatus = 3;
-                Hint.innerHTML = '';
+                endTime = new Date();
+                typingStatus = 3;
+                hintObj.innerHTML = '';
                 CalcuateReport();
             }
         }
@@ -903,9 +964,9 @@
         function LabelKeyboard(charcase) {
             // Check the current keyboard case is equal or not with request keyboard case.
             // If not equal, change to request keyboard case
-            if (CurrentKeyboardCase !== charcase) {
+            if (currentKeyboardCase !== charcase) {
                 // Save Keyboard Character Case.
-                CurrentKeyboardCase = charcase;
+                currentKeyboardCase = charcase;
 
                 if (charcase == 'uppercase') {
                     Object.keys(UPPER_CASE).forEach((key) => {
@@ -931,7 +992,7 @@
 
         // Search key in UPPRER_CASE / LOWER_CASE objects and call "Helight()" function to highlight related key
         function SearchObject() {
-            let CurrentCharacter = LessonLines[CurLine][CurWord][KeySequences[CurLine][CurWord][CurIdx]];
+            let CurrentCharacter = lessonLines[curLine][curWord][KeySequences[curLine][curWord][curIdx]];
 
             if (CurrentCharacter.charCodeAt(0) == 10 || CurrentCharacter.charCodeAt(0) == 13) {
                 HelightKey('Enter');
@@ -962,7 +1023,7 @@
             // Set active class for key
             let element = document.getElementById(key);
             element.classList.add('highlight');
-            CurrentKey = key;
+            currentKey = key;
 
             let finger = element.getAttribute('data-finger');
 
@@ -970,62 +1031,63 @@
             if (_case == 'uppercase') {
                 if (finger == 'ls' || finger == 'lr' || finger == 'lm' || finger == 'lf') {
                     document.getElementById('ShiftRight').classList.add('highlight');
-                    CurrentShiftKey = 'ShiftRight';
+                    currentShiftKey = 'ShiftRight';
                 }
                 else if (finger == 'rs' || finger == 'rr' || finger == 'rm' || finger == 'rf') {
                     document.getElementById('ShiftLeft').classList.add('highlight')
-                    CurrentShiftKey = 'ShiftLeft';
+                    currentShiftKey = 'ShiftLeft';
                 }
             }
             else {
-                CurrentShiftKey = '';
+                currentShiftKey = '';
             }
         }
 
         // Remove style of key
         function RemoveHelight() {
-            if (CurrentKey !== '')
-                document.getElementById(CurrentKey).classList.remove('highlight');
+            if (currentKey !== '')
+                document.getElementById(currentKey).classList.remove('highlight');
 
-            if (CurrentShiftKey !== '')
-                document.getElementById(CurrentShiftKey).classList.remove('highlight');
+            if (currentShiftKey !== '')
+                document.getElementById(currentShiftKey).classList.remove('highlight');
 
-            if (CapLock.hasAttribute('data-active')) {
-                delete CapLock.dataset.active;
-                CapLock.classList.remove('highlight');
+            if (capLockObj.hasAttribute('data-active')) {
+                delete capLockObj.dataset.active;
+                capLockObj.classList.remove('highlight');
             }
         }
 
         function CalcuateReport() {
             // Calcuate CPM 
-            var seconds = Math.floor((EndTime - StartTime) / (1000));
+            var seconds = Math.floor((endTime - startTime) / (1000));
 
-            let cpm = Math.round(LessonLength / (seconds / 60));
+            let cpm = Math.round(lessonLength / (seconds / 60));
 
-            let accuracy = Math.round(((LessonLength - (HitCount - LessonLength)) / LessonLength) * 100);
-
+            let accuracy = Math.round(((lessonLength - (hitCount - lessonLength)) / lessonLength) * 100);
+            
             // document.getElementById('cpm').innerHTML = cpm;
             // document.getElementById('accuracy').innerHTML = accuracy;
-            LessonDisplay.innerHTML = 'Characters Per Minute (CPM) : ' + cpm + ' | Accuracy : ' + accuracy + '%';
+            lessonDisplayObj.innerHTML = 'Characters Per Minute (CPM) : ' + cpm + ' | Accuracy : ' + accuracy + '%';
 
-            saveLessonProgress(1, cpm, accuracy);
+            saveLessonProgress(currentLesson, cpm, accuracy);
+
+            resetVariable();
         }
 
-        function CapOn() {
+        function openCapsLock() {
             // Prohibit using Caps Lock when typing state
-            if (TypingStatus !== 2) {
-                if (CapLock.hasAttribute('data-active')) {
-                    delete CapLock.dataset.active;
-                    CapLock.classList.remove('highlight');
+            if (typingStatus !== 2) {
+                if (capLockObj.hasAttribute('data-active')) {
+                    delete capLockObj.dataset.active;
+                    capLockObj.classList.remove('highlight');
                     LabelKeyboard('lowercase');
                 }
                 else {
-                    CapLock.classList.add('highlight');
-                    CapLock.dataset.active = "";
+                    capLockObj.classList.add('highlight');
+                    capLockObj.dataset.active = "";
                     LabelKeyboard('uppercase');
                 }
             }
-
         }
 
         /**
@@ -1056,6 +1118,19 @@
             console.log("Local Storage updated successfully.");
         }
 
+        function resetVariable() {
+            currentLesson = 0;
+            lessonLines = [];
+            KeySequences = [];
+            lessonLength = 0;
+            curLine = 0; 
+            curWord = 0; 
+            curIdx = 0;
+            hitCount = 0;
+            startTime = '';
+            endTime = '';
+        }
+
         // --- Audio Functions ---
         function initAudio() {
             if (!audioCtx) {
@@ -1068,6 +1143,8 @@
         }
 
         function playSound(frequency, type, duration) {
+            if(!enableAudio) return;
+
             if (!audioCtx) return;
             const oscillator = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
@@ -1097,10 +1174,18 @@
         }
 
         window.onload = function () {
-            if(LessonLength == 0) {
-                openModal();
+            const _writingOrder = localStorage.getItem('writingOrder');
+            writingOrder = _writingOrder !== null? _writingOrder : 'Visual';
+            console.log(writingOrder);
+        
+            const _audioStatus = localStorage.getItem('enableAudio');
+            enableAudio = _audioStatus === 'false' ? false : true;
+            console.log(enableAudio);
+
+            if(lessonLength == 0) {
+                openLessonModal();
             }
-            main();
+            StartTyping();
             initAudio();
         }
     </script>
@@ -1114,31 +1199,68 @@
             'မမ ဝဝ ထထက ပြုံးပြုံးလေးနှင့် လှ။ ပြုံးနေလျှင် လူတိုင်း လှကြသည် ...',
             'ပန်းတိုင်းလှ၍ မွှေးကြသည် မဆိုသာပါ။ အပွင့်ကြီးတိုင်း ပို၍မွှေးကြသည် ...'
         ];
-        const modal = document.getElementById('modal');
-        const modalOverlay = document.getElementById('modal-overlay');
-        const lessonMenu = document.getElementById('lessonMenu');
-        let lessonMenuStr = '';
+        const lessonModal = document.getElementById('lessonModal');
+        const settingModal = document.getElementById('settingModal');
 
-        function openModal() {
+        const modalOverlay = document.getElementById('modal-overlay');
+        const lessonModalBody = document.getElementById('lessonModalBody');
+        
+        function openLessonModal() {
+            const typingProgress = localStorage.getItem('typingProgress');
+            const progressArray = JSON.parse(typingProgress);
+            console.log('typingProgress', typingProgress)
+            console.log('progressArray', progressArray)
+            let lessonMenuStr = '';
+            
             Lessons.forEach((lesson, index) => {
-                lessonMenuStr += `<div class="bg-indigo-50 p-6 rounded-xl border border-indigo-200 flex flex-col justify-between">
+                let color = 'bg-indigo-50';
+                let reportText = '';
+                if (progressArray?.[index]?.[0] !== undefined) {
+                    color = 'bg-green-200';
+                    reportText = `<hr class="text-white my-3" /><p class="text-xs text-center text-purple-600">CPM: ${progressArray[index][0]} | Accuracy ${progressArray[index][1]}%</p>`;
+                }
+                lessonMenuStr += `<div class="${color} p-6 rounded-xl border border-indigo-200 flex flex-col justify-between">
                         <div>
                             <h3 class="font-semibold text-indigo-700 mb-2">Lesson ${index + 1}</h3>
                             <p class="text-sm text-indigo-600">${lesson}</p>
+                            ${reportText}
                         </div>
 
                         <button class="inline-block px-4 py-2 text-sm font-medium text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 transition duration-150 mt-4 self-center" onclick="loadLesson(${index})">Start Lesson</button>
                     </div>
                 `;
             });
-            lessonMenu.innerHTML = lessonMenuStr;
-            modal.classList.remove('hidden');
+            lessonModalBody.innerHTML = lessonMenuStr;
+            
+            lessonModal.classList.remove('hidden');
             modalOverlay.classList.remove('hidden');
         }
 
-        // Function to close the modal
-        function closeModal() {
-            modal.classList.add('hidden');
+        function openSettingModal() {
+            if(writingOrder === 'Visual') {
+                document.querySelector('input[name="writingOrder"][value="Visual"]').checked = true;
+            }
+            else if(writingOrder === 'Phonetic') {
+                document.querySelector('input[name="writingOrder"][value="Phonetic"]').checked = true;
+            }
+
+            if(enableAudio) {
+                document.querySelector('input[name="enableAudio"][value="true"]').checked = true;
+            }
+            else {
+                document.querySelector('input[name="enableAudio"][value="false"]').checked = true;
+            }
+            settingModal.classList.remove('hidden');
+            modalOverlay.classList.remove('hidden');
+        }
+
+        function closeLessonModal() {
+            lessonModal.classList.add('hidden');
+            modalOverlay.classList.add('hidden');
+        }
+
+        function closeSettingModal() {
+            settingModal.classList.add('hidden');
             modalOverlay.classList.add('hidden');
         }
 
@@ -1153,18 +1275,33 @@
 
                 const data = await response.json();
 
-                LessonLength = data.length || 0;
-                LessonLines = data.lines || [];
-                KeySequences = WritingOrder === 'P' ? data.phonetic_keys : data.visual_keys || [];
+                currentLesson = lessonIndex;
+                lessonLength = data.length || 0;
+                lessonLines = data.lines || [];
+                KeySequences = writingOrder === 'Phonetic' ? data.phonetic_keys : data.visual_keys || [];
 
-                closeModal();
-                
+                StartTyping();
+
+                closeLessonModal();
+
                 return true;
 
             } catch (error) {
                 console.error(`Failed to load lesson ${lessonIndex+1}:`, error.message);
                 return null;
             }
+        }
+        
+        function updateWritingOrder(value) {
+            writingOrder = value;
+            localStorage.setItem('writingOrder', writingOrder);
+            console.log(writingOrder);
+        }
+
+        function updateAudoSetting(value) {
+            enableAudio = value === 'true';
+            localStorage.setItem('enableAudio', enableAudio);
+            console.log(enableAudio);
         }
     </script>
 </body>
