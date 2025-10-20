@@ -797,10 +797,30 @@
         var audioCtx;
         var enableAudio = true;
 
+        const Lessons = [
+            'ဖိုးမောင် ဘောလုံးကန်နေသည်။ မန်ယူ ဝတ်စုံကို ဝတ်ထားကာ ကန်နေသည် ...',
+            'ဓာတ်ပုံရိုက်စဉ် သူပြုံးနေသည်။ ဓာတ်ပုံဆရာက ပြုံးခိုင်း၍ ပြုံးရသောကြောင့် ...',
+            'ဌာနသို့ အလည်သွားမည်။ နေမကောင်း၍ ဌာနသို့ မသွားဖြစ်သည်မှာ ကြာပြီ ...',
+            'သတိ ခွေးကိုက်တတ်သည်။ ဖိုးမောင်၏ အိမ်ရှေ့တံခါးတွင် ထိုဆိုင်းဘုတ် ...',
+            'မမ ဝဝ ထထက ပြုံးပြုံးလေးနှင့် လှ။ ပြုံးနေလျှင် လူတိုင်း လှကြသည် ...',
+            'ပန်းတိုင်းလှ၍ မွှေးကြသည် မဆိုသာပါ။ အပွင့်ကြီးတိုင်း ပို၍မွှေးကြသည် ...'
+        ];
+
+        const lessonModal = document.getElementById('lessonModal');
+        const settingModal = document.getElementById('settingModal');
+        const helpModal = document.getElementById('helpModal');
+
+        const modalOverlay = document.getElementById('modal-overlay');
+        const lessonModalBody = document.getElementById('lessonModalBody');
+
         window.addEventListener("keydown", function (event) {
             let k = event.code;
             if (k == 'Escape' || k == 'Tab' || k == 'F1' || k == 'F3' || k == 'F5' || k == 'F6' || k == 'F7' || k == 'F11' || k == 'F12' || k == 'PageUp' || k == 'PageDown' || k == 'Home' || k == 'End') {
                 event.preventDefault();
+            }
+
+            if(k == 'F1') {
+                openHelpModal();
             }
 
             // To start lesson ShiftKey & Space
@@ -812,9 +832,9 @@
                 document.getElementById('Space').classList.remove('highlight');
                 capLockObj.classList.remove('highlight');
 
-                DisplayLines();
-                DisplayHint();
-                SearchObject();
+                displayLines();
+                displayHint();
+                searchObject();
 
                 startTime = new Date();
             }
@@ -827,7 +847,7 @@
                     if (currentShiftKey !== '') {
                         if (event.code == currentKey && event.shiftKey) {
                             playKeySound();
-                            NextChar();
+                            nextChar();
                         }
                         else {
                             playErrorSound();
@@ -836,7 +856,7 @@
                     else {
                         if (event.code == currentKey && !event.shiftKey) {
                             playKeySound();
-                            NextChar();
+                            nextChar();
                         }
                         else {
                             playErrorSound();
@@ -846,8 +866,24 @@
             }
             event.preventDefault();
         });
+        
+        window.onload = function () {
+            const _writingOrder = localStorage.getItem('writingOrder');
+            writingOrder = _writingOrder !== null? _writingOrder : 'Visual';
+            console.log(writingOrder);
+        
+            const _audioStatus = localStorage.getItem('enableAudio');
+            enableAudio = _audioStatus === 'false' ? false : true;
+            console.log(enableAudio);
 
-        function StartTyping() {
+            if(lessonLength == 0) {
+                openLessonModal();
+            }
+            startTyping();
+            initAudio();
+        }
+        
+        function startTyping() {
             typingStatus = 1;
 
             if(lessonLength > 0) {
@@ -862,7 +898,7 @@
             }            
         }
 
-        function DisplayLines() {
+        function displayLines() {
             let line = '';
             lessonLines[curLine].forEach(function (word, idx) {
                 line += '<span id="D' + curLine + '_' + idx + '">' + word + '</span>';
@@ -876,7 +912,7 @@
             document.getElementById('D' + curLine + '_' + curWord).className = 'cursor';
         }
 
-        function DisplayHint() {
+        function displayHint() {
             let hint = '';
             let _char = lessonLines[curLine][curWord][KeySequences[curLine][curWord][0]];
             // ID [LineNo_Word_CharIndex]
@@ -902,15 +938,15 @@
             hintObj.innerHTML = hint;
         }
 
-        function NextChar() {
-            RemoveHelight();
+        function nextChar() {
+            removeHelight();
 
             // In the current word loop => move to next char of current word
             if (curIdx < lessonLines[curLine][curWord].length - 1) {
                 document.getElementById('H' + curLine + '_' + curWord + '_' + curIdx).className = 'finish';
 
                 curIdx++;
-                SearchObject();
+                searchObject();
 
                 document.getElementById('H' + curLine + '_' + curWord + '_' + curIdx).className = 'cursor';
             }
@@ -920,9 +956,9 @@
                 curWord++;
                 curIdx = 0;
 
-                DisplayHint();
+                displayHint();
 
-                SearchObject();
+                searchObject();
 
                 document.getElementById('D' + curLine + '_' + curWord).className = 'cursor';
 
@@ -937,11 +973,11 @@
                 curWord = 0;
                 curIdx = 0;
 
-                DisplayLines();
+                displayLines();
 
-                DisplayHint();
+                displayHint();
 
-                SearchObject();
+                searchObject();
 
                 document.getElementById('D' + curLine + '_' + curWord).className = 'cursor';
 
@@ -955,13 +991,13 @@
                 endTime = new Date();
                 typingStatus = 3;
                 hintObj.innerHTML = '';
-                CalcuateReport();
+                calcuateReport();
             }
         }
 
         // Fill key label with English and Myanmar language base on uppercase or lowercase.
         // Fill key background color base on key finger.
-        function LabelKeyboard(charcase) {
+        function labelKeyboard(charcase) {
             // Check the current keyboard case is equal or not with request keyboard case.
             // If not equal, change to request keyboard case
             if (currentKeyboardCase !== charcase) {
@@ -991,23 +1027,23 @@
         }
 
         // Search key in UPPRER_CASE / LOWER_CASE objects and call "Helight()" function to highlight related key
-        function SearchObject() {
+        function searchObject() {
             let CurrentCharacter = lessonLines[curLine][curWord][KeySequences[curLine][curWord][curIdx]];
 
             if (CurrentCharacter.charCodeAt(0) == 10 || CurrentCharacter.charCodeAt(0) == 13) {
-                HelightKey('Enter');
+                helightKey('Enter');
             }
             else if (CurrentCharacter == ' ') {
-                HelightKey('Space');
+                helightKey('Space');
             }
             else {
                 Object.keys(LOWER_CASE).every(key => {
                     if ((CurrentCharacter == LOWER_CASE[key].my) || (CurrentCharacter == LOWER_CASE[key].en)) {
-                        HelightKey(key, 'lowercase');
+                        helightKey(key, 'lowercase');
                         return false;
                     }
                     else if ((CurrentCharacter == UPPER_CASE[key].my) || (CurrentCharacter == UPPER_CASE[key].en)) {
-                        HelightKey(key, 'uppercase');
+                        helightKey(key, 'uppercase');
                         return false;
                     }
                     // Make sure you return true. If you don't return a value, `every()` will stop.
@@ -1017,8 +1053,8 @@
         }
 
         // Change background color of key that user need to type for current lesson's character.
-        function HelightKey(key, _case = '') {
-            LabelKeyboard(_case);
+        function helightKey(key, _case = '') {
+            labelKeyboard(_case);
 
             // Set active class for key
             let element = document.getElementById(key);
@@ -1044,7 +1080,7 @@
         }
 
         // Remove style of key
-        function RemoveHelight() {
+        function removeHelight() {
             if (currentKey !== '')
                 document.getElementById(currentKey).classList.remove('highlight');
 
@@ -1057,7 +1093,7 @@
             }
         }
 
-        function CalcuateReport() {
+        function calcuateReport() {
             // Calcuate CPM 
             var seconds = Math.floor((endTime - startTime) / (1000));
 
@@ -1080,12 +1116,12 @@
                 if (capLockObj.hasAttribute('data-active')) {
                     delete capLockObj.dataset.active;
                     capLockObj.classList.remove('highlight');
-                    LabelKeyboard('lowercase');
+                    labelKeyboard('lowercase');
                 }
                 else {
                     capLockObj.classList.add('highlight');
                     capLockObj.dataset.active = "";
-                    LabelKeyboard('uppercase');
+                    labelKeyboard('uppercase');
                 }
             }
         }
@@ -1129,6 +1165,7 @@
             hitCount = 0;
             startTime = '';
             endTime = '';
+            labelKeyboard('lowercase');
         }
 
         // --- Audio Functions ---
@@ -1173,38 +1210,6 @@
             playSound(220, 'square', 0.1);
         }
 
-        window.onload = function () {
-            const _writingOrder = localStorage.getItem('writingOrder');
-            writingOrder = _writingOrder !== null? _writingOrder : 'Visual';
-            console.log(writingOrder);
-        
-            const _audioStatus = localStorage.getItem('enableAudio');
-            enableAudio = _audioStatus === 'false' ? false : true;
-            console.log(enableAudio);
-
-            if(lessonLength == 0) {
-                openLessonModal();
-            }
-            StartTyping();
-            initAudio();
-        }
-    </script>
-
-    <script>
-        const Lessons = [
-            'ဖိုးမောင် ဘောလုံးကန်နေသည်။ မန်ယူ ဝတ်စုံကို ဝတ်ထားကာ ကန်နေသည် ...',
-            'ဓာတ်ပုံရိုက်စဉ် သူပြုံးနေသည်။ ဓာတ်ပုံဆရာက ပြုံးခိုင်း၍ ပြုံးရသောကြောင့် ...',
-            'ဌာနသို့ အလည်သွားမည်။ နေမကောင်း၍ ဌာနသို့ မသွားဖြစ်သည်မှာ ကြာပြီ ...',
-            'သတိ ခွေးကိုက်တတ်သည်။ ဖိုးမောင်၏ အိမ်ရှေ့တံခါးတွင် ထိုဆိုင်းဘုတ် ...',
-            'မမ ဝဝ ထထက ပြုံးပြုံးလေးနှင့် လှ။ ပြုံးနေလျှင် လူတိုင်း လှကြသည် ...',
-            'ပန်းတိုင်းလှ၍ မွှေးကြသည် မဆိုသာပါ။ အပွင့်ကြီးတိုင်း ပို၍မွှေးကြသည် ...'
-        ];
-        const lessonModal = document.getElementById('lessonModal');
-        const settingModal = document.getElementById('settingModal');
-
-        const modalOverlay = document.getElementById('modal-overlay');
-        const lessonModalBody = document.getElementById('lessonModalBody');
-        
         function openLessonModal() {
             const typingProgress = localStorage.getItem('typingProgress');
             const progressArray = JSON.parse(typingProgress);
@@ -1280,7 +1285,7 @@
                 lessonLines = data.lines || [];
                 KeySequences = writingOrder === 'Phonetic' ? data.phonetic_keys : data.visual_keys || [];
 
-                StartTyping();
+                startTyping();
 
                 closeLessonModal();
 
