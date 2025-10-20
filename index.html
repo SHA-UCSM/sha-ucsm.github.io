@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centered Login</title>
+    <title>Myanmar Typing</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -603,8 +603,7 @@
 
             <div class="flex justify-between items-center pl-6 py-2 pr-4 border-b border-gray-200">
                 <h3 class="text-2xl font-bold text-gray-800">Lessons</h3>
-                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl"
-                    onclick="closeModal()">&times;</button>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl" onclick="closeModal()">&times;</button>
             </div>
 
             <div class="p-6 overflow-y-auto max-h-[60vh] thin-scrollbar space-y-4">
@@ -718,6 +717,7 @@
         var LessonLines = [];
         var KeySequences = [];
         var LessonLength = 0;
+        var WritingOrder = 'P'; // Phonetic (P) | Visual (V)
 
         var CurLine = 0; var CurWord = 0; var CurIdx = 0;
 
@@ -1145,34 +1145,24 @@
         async function loadLesson(lessonIndex) {
             const url = `https://raw.githubusercontent.com/SHA-UCSM/sha-ucsm.github.io/main/lesson${lessonIndex+1}.json`;
             try {
-                // 1. Fetch the file from the server
                 const response = await fetch(url);
 
-                // Check if the HTTP status is successful (e.g., 200-299)
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status} when fetching ${url}`);
                 }
 
-                // 2. Parse the read data (response body) as JSON
                 const data = await response.json();
 
-                // 3. Destructure the parsed data and set to variables
                 LessonLength = data.length || 0;
                 LessonLines = data.lines || [];
-                KeySequences = data.keys || [];
+                KeySequences = WritingOrder === 'P' ? data.phonetic_keys : data.visual_keys || [];
 
-                // Log the results (optional, for debugging)
-                console.log(`Successfully loaded Lesson ${lessonIndex}:`);
-                console.log(`LessonLines count: ${LessonLines.length}`);
-                console.log(`LessonLength: ${LessonLength}`);
-
-                // Indicate success
+                closeModal();
+                
                 return true;
 
             } catch (error) {
-                // Handle network errors, file not found (404), or JSON parsing errors
-                console.error(`Failed to load lesson ${lessonIndex}:`, error.message);
-                // Return null or throw the error, depending on how you want to handle failures
+                console.error(`Failed to load lesson ${lessonIndex+1}:`, error.message);
                 return null;
             }
         }
